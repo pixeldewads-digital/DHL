@@ -140,7 +140,7 @@ h3 {
     background: transparent;
     backdrop-filter: none;
      transition: background 0.4s ease, box-shadow 0.4s ease, color 0.3s ease;
-
+}
 .navbar .container {
     height: 100%;
     display: flex;
@@ -212,7 +212,7 @@ h3 {
     background-repeat: no-repeat;
 }
 
-.hero--home{ background-image: url('../hero-villa.webp ');} /* atau ../hero-villa.webp */
+.hero--home{ background-image: url('../hero-villa.webp');} /* atau ../hero-villa.webp */
 
 .hero--investment { background-image: url('../assets/hero-investment.webp'); }
 .hero--services { background-image: url('../assets/hero-services.webp'); }
