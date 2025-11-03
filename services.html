@@ -1,78 +1,64 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jasa Konstruksi Profesional - Dewata Home Living</title>
-    <meta name="description" content="Layanan konstruksi Dewata Home Living mencakup desain arsitektur, pembangunan baru, serta renovasi dan upgrade properti di Bali.">
-
-    <meta property="og:title" content="Jasa Konstruksi Profesional - Dewata Home Living">
-    <meta property="og:description" content="Layanan desain arsitektur, konstruksi, dan renovasi properti di Bali.">
-    <meta property="og:image" content="assets/hero-services.webp">
-
-    <link rel="icon" href="assets/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jasa Konstruksi – Dewata Home Living</title>
+  <meta name="description" content="Jasa desain arsitektur, konstruksi, renovasi, dan upgrade properti di Bali.">
+  <meta property="og:image" content="assets/hero-services.webp">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="css/style.css?v=16">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<header class="navbar">
+  <div class="navbar-container">
+    <a href="index.html" class="logo"><img src="assets/logo-dhl.svg" alt="DHL" style="height:40px"></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a><a href="investment.html">Paket Investasi</a>
+      <a href="services.html" class="active">Jasa Konstruksi</a>
+      <a href="portfolio.html">Portfolio</a><a href="about.html">Tentang</a><a href="contact.html">Kontak</a>
+    </nav>
+    <button class="hamburger" aria-label="Buka menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
 
-    <header class="navbar">
-        <div class="container">
-            <a href="index.html" class="navbar__logo"><img src="assets/logo-dhl.svg" alt="Dewata Home Living Logo"></a>
-            <nav class="navbar__nav">
-                <ul class="navbar__menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="investment.html">Paket Investasi</a></li>
-                    <li><a href="services.html" class="active">Jasa Konstruksi</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="about.html">Tentang</a></li>
-                    <li><a href="contact.html">Kontak</a></li>
-                </ul>
-            </nav>
-            <button class="navbar__toggle" aria-label="Buka menu"><span></span><span></span><span></span></button>
-        </div>
-    </header>
+<main>
+  <section class="hero hero--home" style="background-image:url('assets/hero-services.webp')">
+    <div class="container">
+      <h1 class="reveal-head">Jasa Konstruksi & Desain</h1>
+      <p class="reveal-sub">Desain 3D, gambar kerja, manajemen proyek, dan pengawasan</p>
+      <div class="hero-buttons reveal-cta">
+        <a href="https://wa.me/628282569675" class="btn btn-primary">Konsultasi Gratis</a>
+        <a href="#layanan" class="btn btn-outline">Lihat Layanan</a>
+      </div>
+    </div>
+  </section>
 
-    <main>
-        <section class="hero hero--services">
-            <div class="container">
-                <h1 class="hero__title fade-in">Mewujudkan Properti Impian Anda</h1>
-                <p class="hero__subtitle fade-in">Dari konsep desain hingga serah terima kunci, kami ahlinya.</p>
-            </div>
-        </section>
+  <section id="layanan" class="section">
+    <div class="container">
+      <h2 class="text-center fade-in">Layanan Utama</h2>
+      <div class="grid-3">
+        <div class="card fade-in"><h3>Desain Arsitektur</h3><p>Konsep, 3D visual, hingga gambar kerja lengkap.</p></div>
+        <div class="card fade-in"><h3>Konstruksi</h3><p>Pelaksanaan struktur, arsitektur, MEP, QA/QC.</p></div>
+        <div class="card fade-in"><h3>Renovasi & Upgrade</h3><p>Modernisasi ruang, efisiensi energi, & perawatan.</p></div>
+      </div>
+    </div>
+  </section>
 
-        <section class="section">
-            <div class="container">
-                <h2 class="section__title fade-in">Layanan Konstruksi Terpadu</h2>
-                <div class="grid grid--3">
-                    <div class="card fade-in">
-                        <h3 class="card__title">Desain Arsitektur & 3D</h3>
-                        <p>Visualisasikan properti Anda sebelum dibangun dengan gambar 3D realistis dan denah yang fungsional.</p>
-                    </div>
-                    <div class="card fade-in">
-                        <h3 class="card__title">Konstruksi Baru</h3>
-                        <p>Pembangunan dari nol dengan material berkualitas, manajemen proyek yang disiplin, dan tukang berpengalaman.</p>
-                    </div>
-                    <div class="card fade-in">
-                        <h3 class="card__title">Renovasi & Upgrade</h3>
-                        <p>Tingkatkan nilai dan kenyamanan properti lama Anda melalui renovasi total atau sebagian yang modern.</p>
-                    </div>
-                </div>
-                <div class="section__cta fade-in">
-                    <a href="https://wa.me/628282569675" class="btn btn--primary">Konsultasi Proyek Anda</a>
-                </div>
-            </div>
-        </section>
-    </main>
+  <section class="section section--dark">
+    <div class="container">
+      <h2 class="text-center fade-in">Proses Kerja</h2>
+      <div class="grid-3">
+        <div class="card fade-in"><h3>1. Konsultasi</h3><p>Analisis kebutuhan, lokasi, dan budget.</p></div>
+        <div class="card fade-in"><h3>2. Desain & RAB</h3><p>Skematik, 3D, dan RAB transparan.</p></div>
+        <div class="card fade-in"><h3>3. Konstruksi</h3><p>Eksekusi, pengawasan, dan laporan rutin.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
 
-    <footer class="footer">
-        <div class="container"><p>&copy; 2024 Dewata Home Living. All rights reserved.</p></div>
-    </footer>
-
-    <a href="https://wa.me/628282569675" class="whatsapp-float" aria-label="Hubungi kami di WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.8 0-67.6-9.5-97.8-27.2l-4.2-2.5-70.2 18.4L78 360.2l-2.9-4.4c-19.4-29.6-31.3-65.5-31.3-103.1 0-109.4 88.9-198.4 198.4-198.4 54.5 0 105.4 21.2 144.1 59.9 38.7 38.7 59.9 89.6 59.9 144.1-.1 109.5-89 198.5-198.5 198.5zm101.7-164.8c-3.3-1.7-19.8-9.8-22.8-10.9-3.1-1.1-5.4-1.7-7.6 1.7-2.2 3.3-8.6 10.9-10.6 13.1-1.9 2.2-3.8 2.4-7.1 1.7-3.3-1.7-14.1-5.2-26.8-16.6-9.8-8.9-16.4-19.8-18.3-23.1-1.9-3.3-.2-5.1 1.5-6.6 1.5-1.3 3.3-3.3 5-5.1 1.7-1.7 2.2-3.3 3.3-5.5s1.7-4.2 1.1-5.9c-.5-1.7-7.6-18.3-10.4-25.1-2.8-6.8-5.6-5.9-7.6-5.9-2.1 0-4.4-.3-6.6-.3-2.2 0-5.9 1.1-8.9 5.4-3.1 4.2-11.8 11.5-11.8 28.1 0 16.6 12.1 32.6 13.8 34.8 1.7 2.2 23.4 35.6 56.6 50.1 8.2 3.7 14.6 5.9 19.6 7.6 8.7 2.8 16.6 2.4 22.8 1.4 6.8-1 19.8-8.1 22.5-15.9 2.8-7.8 2.8-14.4 1.9-15.9-.9-1.4-3-2.2-6.3-3.9z"/></svg></a>
-
-    <script src="js/main.js"></script>
+<footer class="footer"><div class="container"><p>© 2024 Dewata Home Living.</p></div></footer>
+<a href="https://wa.me/628282569675" class="whatsapp-float" aria-label="WhatsApp"></a>
+<script src="js/main.js"></script>
 </body>
 </html>
