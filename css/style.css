@@ -84,7 +84,7 @@ p{color:#DDEAE4;margin:0 0 1rem}
 
 .hero--home{
   /* jika hero-villa.webp ada di root proyek */
-  background-image:url('../hero-villa.webp');
+  background-image:url('../assets/hero-villa.webp');
   /* jika ada di /assets/, ganti jadi: url('../assets/hero-villa.webp') */
   background-position:center top; background-size:cover; background-repeat:no-repeat;
 }
