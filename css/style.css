@@ -95,6 +95,7 @@ p{color:#DDEAE4;margin:0 0 1rem}
   background-image:url('../assets/hero-villa.webp');
   /* jika ada di /assets/, ganti jadi: url('../assets/hero-villa.webp') */
   background-position:center top; background-size:cover; background-repeat:no-repeat;
+    will-change: background-position;
 }
 
 /* 5) Sections & Utilities */
@@ -114,22 +115,22 @@ p{color:#DDEAE4;margin:0 0 1rem}
   background:var(--emerald); color:#fff; box-shadow:0 6px 16px rgba(0,168,120,.20);
 }
 .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,168,120,.25) }
-.btn-outline{ background:transparent; color:#fff; border-color:#fff }
-.navbar.is-solid .btn-outline{ color:var(--charcoal); border-color:var(--charcoal) }
+.btn-outline{ background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.85) }
+.navbar.is-solid .btn-outline{ color:#222;border-color:#222 }
 .btn-outline:hover{ background:rgba(255,255,255,.12) }
 
 /* 7) Cards (rapi + animasi hover) */
 .card{
-  background:#fff; color:var(--charcoal);
+  background:rgba(255,255,255,.9); 
   border-radius:var(--radius);
-  box-shadow:var(--shadow);
+  box-shadow:0 8px 26px rgba(0,0,0,.08);
   padding:20px;
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-  border:1px solid rgba(0,0,0,.04);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+  border:1px solid rgba(0,0,0,.06);
 }
 .card:hover{
   transform: translateY(-6px);
-  box-shadow: 0 14px 32px rgba(0,0,0,.16);
+  box-shadow: 0 16px 40px rgba(0,0,0,.16);
   border-color: rgba(0,168,120,.35);
 }
 .card h3{ color:var(--charcoal) }
@@ -168,4 +169,25 @@ p{color:#DDEAE4;margin:0 0 1rem}
   background: rgba(255,255,255,0.3);
   backdrop-filter: blur(4px);
   z-index: -1;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-sub{font-size:.8rem;color:#fff;opacity:.8}
+.navbar.is-solid .logo-sub{color:#555;opacity:1}
+
+.portfolio-item{position:relative;overflow:hidden;border-radius:16px}
+.portfolio-item__caption{
+  position:absolute;left:0;right:0;bottom:-100%;
+  padding:14px;text-align:center;color:#fff;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.6));
+  transition:bottom .35s ease;
+}
+.portfolio-item:hover .portfolio-item__caption{bottom:0}
+
+.section + .section{
+  position:relative;
+}
+.section + .section::before{
+  content:"";position:absolute;left:50%;transform:translateX(-50%);
+  top:-1px;width:min(1100px,92vw);height:1px;opacity:.5;
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,.08),transparent);
 }
