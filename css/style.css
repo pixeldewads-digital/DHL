@@ -199,11 +199,12 @@ h3 {
 /* Hero Section */
 .hero {
     height: 90vh;
-    display: flex;
+    padding:calc(78px + 32px) 0 32px;
+    display: grid;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: var(--text-light);
+    color: #fff;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
