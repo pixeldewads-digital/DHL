@@ -22,7 +22,7 @@
 html{scroll-behavior:smooth}
 body{
   font-family:"Lato",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  color:#EAF3EE;background:var(--bg);line-height:1.6;
+  color:var(--text-light);;background:linear-gradient(180deg, #0E1311 0%, #012D26 50%, #00241E 100%);line-height:1.6;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 }
 img{max-width:100%;display:block}
