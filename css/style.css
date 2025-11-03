@@ -97,7 +97,7 @@ p{color:#DDEAE4;margin:0 0 1rem}
 .hero--home{
    position: relative;
   /* jika hero-villa.webp ada di root proyek */
-  background: url('assets/hero-villa.webp') center/cover no-repeat;
+  background: url('../assets/hero-villa.webp') center/cover no-repeat;
   color: #fff;
 }
 .hero--home::before {
