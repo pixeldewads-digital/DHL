@@ -218,7 +218,7 @@ p{color:#DDEAE4;margin:0 0 1rem}
 /* saat navbar solid putih, hilangkan shadow agar rapi */
 .navbar.is-solid .logo img{
   ffilter: none;
-  content: url("assets/logo-dhl-emerald.png");
+  content: url("assets/logo-dhl-white.png");
 
 }
 /* tweak di mobile: navbar biasanya lebih pendek */
