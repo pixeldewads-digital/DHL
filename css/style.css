@@ -208,7 +208,7 @@ h3 {
     background-position: center;
     background-repeat: no-repeat;
 }
-.hero{ min-height:90vh; padding:calc(78px + 32px) 0 32px; display:grid; align-items:center; color:#fff; }
+
 .hero--home{
   background-image: url('../hero-villa.webp '); /* atau ../hero-villa.webp */
   background-position: center top;
