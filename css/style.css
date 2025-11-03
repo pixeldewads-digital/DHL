@@ -20,10 +20,18 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:"Lato",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  color:var(--text-light);;background:linear-gradient(180deg, #0E1311 0%, #012D26 50%, #00241E 100%);line-height:1.6;
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-dark);
+
+  /* Background premium dengan gradasi lembut */
+  background: radial-gradient(circle at top right, #f3f5f4 0%, #e9eceb 40%, #dfe5e2 100%);
+  background-attachment: fixed;
+
+  /* memberi kesan depth */
+  overflow-x: hidden;
 }
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
@@ -147,4 +155,17 @@ p{color:#DDEAE4;margin:0 0 1rem}
   .hamburger{ display:block }
   .hero{ text-align:center }
   .hero--home{ background-position:center 12% }
+}
+.section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(4px);
+  z-index: -1;
 }
