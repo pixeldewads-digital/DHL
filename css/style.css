@@ -193,7 +193,7 @@ p{color:#DDEAE4;margin:0 0 1rem}
 
 }
 
-:root{ --nav-h: 78px; }
+:root{ --nav-h: 84px; }
 
 .logo{
   position: relative;
@@ -202,16 +202,20 @@ p{color:#DDEAE4;margin:0 0 1rem}
 }
 
 .logo img{
-  height: clamp(40px, calc(var(--nav-h) - 18px), 60px);
+ height: clamp(60px, calc(var(--nav-h) - 10px), 75px);
   width: auto;
-  transition: opacity .25s ease, filter .25s ease;
   display: block;
+  transition: height 0.3s ease, transform 0.3s ease;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
 
 .logo--solid{
   position: absolute; /* tumpuk persis di atas logo--hero */
   left: 0; top: 0;
   opacity: 0;
+}
+.logo img:hover {
+  transform: scale(1.05);
 }
 
 .navbar.is-solid .logo--hero{ opacity: 0; }
@@ -225,6 +229,11 @@ p{color:#DDEAE4;margin:0 0 1rem}
 .navbar{ z-index: 1000; }
 }
 /* tweak di mobile: navbar biasanya lebih pendek */
-@media (max-width: 768px){
-  :root{ --nav-h: 64px; }
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 68px;
+  }
+  .logo img {
+    height: clamp(45px, calc(var(--nav-h) - 10px), 60px);
+  }
 }
