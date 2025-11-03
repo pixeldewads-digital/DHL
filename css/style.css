@@ -1,505 +1,150 @@
-/* ==========================================================================
-   1. Custom Properties
-   ========================================================================== */
+/* =========================================================
+   Dewata Home Living — style.css (clean)
+   ========================================================= */
+
+/* 0) Fonts (opsional: atau pasang <link> di <head>) */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;800&display=swap');
+
+/* 1) Root & Reset */
+:root{
+  --emerald:#00A878;
+  --gold:#FFD700;
+  --charcoal:#222222;
+  --bg:#0E1311;
+
+  --nav-h:78px;
+  --radius:16px;
+  --shadow:0 12px 28px rgba(0,0,0,.12);
+  --section-y:48px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Lato",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:#EAF3EE;background:var(--bg);line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+.container{width:min(1100px,92vw);margin:0 auto}
+
+/* 2) Typography */
+h1,h2,h3{color:#fff;line-height:1.2;margin:0 0 .5rem}
+h1{font-family:"Playfair Display",serif;font-size:clamp(36px,5vw,60px)}
+h2{font-size:clamp(24px,3.4vw,36px)}
+h3{font-size:clamp(18px,2.2vw,22px)}
+p{color:#DDEAE4;margin:0 0 1rem}
+
+/* 3) Navbar (transparent -> solid on scroll) */
+.navbar{
+  position:fixed; inset:0 0 auto 0; z-index:999; height:var(--nav-h);
+  display:flex; align-items:center;
+  background:transparent; backdrop-filter:none; box-shadow:none;
+  transition:background .35s ease, box-shadow .25s ease, color .25s ease;
+}
+.navbar .navbar-container{
+  width:min(1100px,92vw); margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+}
+.logo{color:#fff;font-weight:800;letter-spacing:.2px}
+.nav-links{display:flex; gap:28px; align-items:center}
+.nav-links a{
+  color:rgba(255,255,255,.98); font-weight:700;
+  text-shadow:0 2px 10px rgba(0,0,0,.45);
+  transition:color .2s ease, opacity .2s ease; opacity:.95;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);opacity:1}
+
+/* state saat di-scroll (JS akan menambah .is-solid) */
+.navbar.is-solid{
+  background:#fff; backdrop-filter:none; box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.navbar.is-solid .logo,
+.navbar.is-solid .nav-links a{color:var(--charcoal); text-shadow:none}
+.navbar.is-solid .nav-links a:hover,
+.navbar.is-solid .nav-links a.active{color:var(--emerald)}
+
+/* hamburger (opsional, jika dipakai) */
+.hamburger{display:none;width:40px;height:40px;border:0;background:transparent;padding:8px;cursor:pointer}
+.hamburger span{display:block;height:2px;margin:6px 0;background:#fff;transition:background .2s}
+.navbar.is-solid .hamburger span{background:var(--charcoal)}
+
+/* 4) Hero (background via CSS, no gradient) */
+.hero{
+  min-height:90vh;
+  display:grid; align-items:center;
+  padding: calc(var(--section-y) + var(--nav-h)) 0 var(--section-y);
+  color:#fff; text-align:left;
+}
+.hero .container{width:min(1100px,92vw)}
+.hero h1{ text-shadow:0 2px 24px rgba(0,0,0,.4) }
+.hero p{ color:#F1F9F4 }
 
-:root {
-    --primary-color: #00A878; /* Emerald */
-    --accent-color: #FFD700;  /* Gold */
-    --text-dark: #222222;     /* Charcoal */
-    --bg-dark: #0E1311;
-    --bg-light: #FFFFFF;
-    --text-light: #FFFFFF;
-
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Lato', sans-serif;
-
-    --navbar-height: 80px;
-    --border-radius: 8px;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --shadow-text: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* ==========================================================================
-   2. Global Styles & Reset
-   ========================================================================== */
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--text-dark);
-    background-color: var(--bg-light);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-ul {
-    list-style: none;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* ==========================================================================
-   3. Typography
-   ========================================================================== */
-
-h1, h2, h3, h4 {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-}
-
-h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-}
-
-/* ==========================================================================
-   4. Layout & Utilities
-   ========================================================================== */
-
-.container {
-    width: 90%;
-    max-width: 1140px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section {
-    padding: 6rem 0;
-}
-
-.section--dark {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-}
-
-.grid {
-    display: grid;
-    gap: 2rem;
-}
-
-.grid--3 {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ==========================================================================
-   5. Components
-   ========================================================================== */
-
-/* Navbar */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--navbar-height);
-    display: flex; align-items: center;
-    z-index: 1000;
-    background: transparent;
-    backdrop-filter: none;
-     transition: background 0.4s ease, box-shadow 0.4s ease, color 0.3s ease;
-}
-.navbar .container {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar__logo img {
-    height: 40px;
-}
-
-.navbar__menu {
-    display: flex;
-    gap: 2rem;
-}
-
-.navbar__menu a {
-    color: #fff;
-    font-weight: 700;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
-    position: relative;
-    padding-bottom: 0.5rem;
-}
-
-.navbar__menu a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-.navbar__menu a:hover::after,
-.navbar__menu a.active::after {
-    width: 100%;
-}
-
-.navbar.is-solid {
-   background: #fff;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-}
-
-.navbar.is-solid .navbar__menu a {
-   color: #222;
-  text-shadow: none;
-}
-
-.navbar__toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* Hero Section */
-.hero {
-    height: 90vh;
-    padding:calc(78px + 32px) 0 32px;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.hero--home{ background-image: url('../hero-villa.webp');} /* atau ../hero-villa.webp */
-
-.hero--investment { background-image: url('../assets/hero-investment.webp'); }
-.hero--services { background-image: url('../assets/hero-services.webp'); }
-.hero--portfolio { background-image: url('../assets/hero-portfolio.webp'); }
-.hero--about { background-image: url('../assets/hero-about.webp'); }
-.hero--contact { background-image: url('../assets/hero-contact.webp'); }
-
-.hero__title {
-    text-shadow: var(--shadow-text);
-    margin-bottom: 1rem;
-}
-
-.hero__subtitle {
-    font-size: 1.25rem;
-    text-shadow: var(--shadow-text);
-    margin-bottom: 2rem;
-}
-
-.hero__cta {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    border-radius: var(--border-radius);
-    font-weight: 700;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-.btn--primary {
-    background-color: var(--primary-color);
-    color: var(--text-light);
-}
-
-.btn--secondary {
-    background-color: transparent;
-    color: var(--text-light);
-    border: 2px solid var(--accent-color);
-}
-
-.navbar.is-solid .btn--secondary {
-    color: var(--text-dark);
-}
-
-.section--dark .btn--secondary {
-     color: var(--text-light);
-}
-
-/* Cards */
-.card {
-    background-color: #f9f9f9;
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    text-align: center;
-}
-
-.card--dark {
-    background-color: #1a201e;
-    color: var(--text-light);
-    border: 1px solid var(--primary-color);
-}
-
-.card__price {
-    font-size: 1.75rem;
-    font-family: var(--font-heading);
-    color: var(--accent-color);
-    margin-bottom: 1rem;
-}
-
-/* Portfolio */
-.portfolio-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-}
-.portfolio-item img {
-    transition: transform 0.4s ease;
-}
-.portfolio-item:hover img {
-    transform: scale(1.05);
-}
-.portfolio-item__caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    color: var(--text-light);
-    padding: 1rem;
-    text-align: center;
-    font-weight: 700;
-}
-.section__cta {
-    text-align: center;
-    margin-top: 3rem;
-}
-
-
-/* Footer */
-.footer {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    padding: 2rem 0;
-    text-align: center;
-}
-
-/* WhatsApp Float Button */
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background-color: #25D366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 999;
-}
-
-
-/* ==========================================================================
-   6. Responsive Design
-   ========================================================================== */
-
-@media (max-width: 992px) {
-    h1 { font-size: 2.8rem; }
-    h2 { font-size: 2rem; }
-    .grid--3 { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 768px) {
-    .navbar__menu {
-        position: absolute;
-        top: var(--navbar-height);
-        left: 0;
-        width: 100%;
-        flex-direction: column;
-        background-color: var(--bg-light);
-        padding: 1rem 0;
-        text-align: center;
-        transform: translateY(-120%);
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .navbar__menu.is-active {
-        transform: translateY(0);
-    }
-
-    .navbar__menu a,
-    .navbar.is-solid .navbar__menu a {
-        color: var(--text-dark);
-        text-shadow: none;
-    }
-
-    .navbar__toggle {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        z-index: 1001; /* Must be higher than navbar */
-    }
-
-    .navbar__toggle span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background-color: var(--text-light);
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .navbar.is-solid .navbar__toggle span {
-         background-color: var(--text-dark);
-    }
-
-    h1 { font-size: 2.2rem; }
-    .hero { height: 80vh; }
-    .hero__cta { flex-direction: column; }
-    .section { padding: 4rem 0; }
-}
-
-/* Contact Page */
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: flex-start;
-}
-.contact-info p {
-    margin-bottom: 1rem;
-}
-.contact-form .form-group {
-    margin-bottom: 1.5rem;
-}
-.contact-form label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-}
-.contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-}
-.google-map {
-    border:0;
-    border-radius: var(--border-radius);
-}
-@media (max-width: 768px) {
-    .contact-grid { grid-template-columns: 1fr; }
-}
-
-/* About Page */
-.text-container {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 4rem auto;
-}
-
-.hero .btn--secondary {
-    color: var(--text-dark);
-    background-color: rgba(255, 255, 255, 0.7); /* Add a subtle background for better readability */
-}
-
-.hero .btn--secondary:hover {
-    background-color: var(--bg-light);
-}
-
-/* Timeline */
-.timeline {
-    position: relative;
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem 0;
-}
-.timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 19px;
-    height: 100%;
-    width: 4px;
-    background: var(--primary-color);
-}
-.timeline-item {
-    margin-bottom: 2rem;
-    position: relative;
-    padding-left: 4rem;
-}
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--bg-light);
-    border: 4px solid var(--primary-color);
-    z-index: 1;
-}
-.timeline-item h4 {
-    margin-bottom: 0.5rem;
-    color: var(--primary-color);
-}
-.hero{ min-height:90vh; padding:calc(78px + 32px) 0 32px; display:grid; align-items:center; color:#fff; }
 .hero--home{
-  background-image: url('../hero-villa.webp'); /* atau ../hero-villa.webp */
-  background-position: center top;
-  background-size: cover;
-  background-repeat: no-repeat;
+  /* jika hero-villa.webp ada di root proyek */
+  background-image:url('../hero-villa.webp');
+  /* jika ada di /assets/, ganti jadi: url('../assets/hero-villa.webp') */
+  background-position:center top; background-size:cover; background-repeat:no-repeat;
 }
-.navbar{ position:fixed; inset:0 0 auto 0; height:78px; background:transparent; box-shadow:none; }
-.navbar.is-solid{ background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.08); }
-.navbar .nav-links a{ color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.45); font-weight:700; }
-.navbar.is-solid .nav-links a{ color:#222; text-shadow:none; }
+
+/* 5) Sections & Utilities */
+.section{padding:var(--section-y) 0}
+.text-center{text-align:center}
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+@media (max-width:1024px){ .grid-3{grid-template-columns:1fr 1fr} }
+@media (max-width:720px){ .grid-3{grid-template-columns:1fr} }
+
+/* 6) Buttons */
+.btn{
+  display:inline-block; padding:12px 20px; border-radius:12px;
+  font-weight:700; border:1px solid transparent;
+  transition:transform .25s ease, box-shadow .25s ease, background .2s ease, color .2s ease, border-color .2s ease;
+}
+.btn-primary{
+  background:var(--emerald); color:#fff; box-shadow:0 6px 16px rgba(0,168,120,.20);
+}
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,168,120,.25) }
+.btn-outline{ background:transparent; color:#fff; border-color:#fff }
+.navbar.is-solid .btn-outline{ color:var(--charcoal); border-color:var(--charcoal) }
+.btn-outline:hover{ background:rgba(255,255,255,.12) }
+
+/* 7) Cards (rapi + animasi hover) */
+.card{
+  background:#fff; color:var(--charcoal);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  border:1px solid rgba(0,0,0,.04);
+}
+.card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(0,0,0,.16);
+  border-color: rgba(0,168,120,.35);
+}
+.card h3{ color:var(--charcoal) }
+.card .price{ font-family:"Playfair Display",serif; color:var(--gold); font-size:1.4rem; margin-top:.25rem }
+
+/* 8) Animations on scroll (optional) */
+.fade-in{ opacity:0; transform:translateY(40px); transition:opacity .8s ease, transform .8s ease }
+.fade-in.visible{ opacity:1; transform:none }
+
+/* 9) Footer */
+.footer{
+  background:#0B0F0D; color:#CFE1DA; padding:32px 0; text-align:center;
+}
+.footer a{ color:#CFE1DA } .footer a:hover{ color:#fff }
+
+/* 10) Mobile tweaks */
+@media (max-width:820px){
+  .nav-links{ display:none; position:fixed; top:var(--nav-h); left:16px; right:16px;
+    background:#fff; color:var(--charcoal); border-radius:16px; box-shadow:var(--shadow);
+    padding:14px; flex-direction:column; gap:12px
+  }
+  .nav-links.show{ display:flex }
+  .hamburger{ display:block }
+  .hero{ text-align:center }
+  .hero--home{ background-position:center 12% }
+}
