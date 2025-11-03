@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    // js/main.js
+const hero = document.querySelector('.hero--home');
+window.addEventListener('scroll', () => {
+  const y = Math.min(40, window.scrollY * 0.08); // max 40px
+  if (hero) hero.style.backgroundPosition = `center calc(0px + ${y}px)`;
+});
 
     // 3. Fade-in Animation on Scroll
     const fadeInElements = document.querySelectorAll('.fade-in');
