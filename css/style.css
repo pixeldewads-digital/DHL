@@ -56,7 +56,10 @@ p{color:#DDEAE4;margin:0 0 1rem}
   width:min(1100px,92vw); margin:0 auto;
   display:flex; align-items:center; justify-content:space-between; gap:24px;
 }
-.logo{color:#fff;font-weight:800;letter-spacing:.2px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-sub{font-size:.8rem;color:#fff;opacity:.8}
+.navbar.is-solid .logo-sub{color:#555;opacity:1}
+
 .nav-links{display:flex; gap:28px; align-items:center}
 .nav-links a{
   color:rgba(255,255,255,.98); font-weight:700;
@@ -170,9 +173,6 @@ p{color:#DDEAE4;margin:0 0 1rem}
   backdrop-filter: blur(4px);
   z-index: -1;
 }
-.logo{display:flex;align-items:center;gap:12px}
-.logo-sub{font-size:.8rem;color:#fff;opacity:.8}
-.navbar.is-solid .logo-sub{color:#555;opacity:1}
 
 .portfolio-item{position:relative;overflow:hidden;border-radius:16px}
 .portfolio-item__caption{
