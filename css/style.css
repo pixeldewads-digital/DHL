@@ -208,7 +208,14 @@ h3 {
     background-position: center;
     background-repeat: no-repeat;
 }
-.hero--home { background-image: url('../assets/hero-villa.webp'); }
+.hero{ min-height:90vh; padding:calc(78px + 32px) 0 32px; display:grid; align-items:center; color:#fff; }
+.hero--home{
+  background-image: url('../hero-home.webp'); /* atau ../hero-villa.webp */
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .hero--investment { background-image: url('../assets/hero-investment.webp'); }
 .hero--services { background-image: url('../assets/hero-services.webp'); }
 .hero--portfolio { background-image: url('../assets/hero-portfolio.webp'); }
