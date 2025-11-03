@@ -495,3 +495,14 @@ h3 {
     margin-bottom: 0.5rem;
     color: var(--primary-color);
 }
+.hero{ min-height:90vh; padding:calc(78px + 32px) 0 32px; display:grid; align-items:center; color:#fff; }
+.hero--home{
+  background-image: url('../hero-villa.webp'); /* atau ../hero-villa.webp */
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.navbar{ position:fixed; inset:0 0 auto 0; height:78px; background:transparent; box-shadow:none; }
+.navbar.is-solid{ background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.08); }
+.navbar .nav-links a{ color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.45); font-weight:700; }
+.navbar.is-solid .nav-links a{ color:#222; text-shadow:none; }
