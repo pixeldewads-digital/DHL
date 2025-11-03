@@ -191,12 +191,20 @@ p{color:#DDEAE4;margin:0 0 1rem}
   top:-1px;width:min(1100px,92vw);height:1px;opacity:.5;
   background:linear-gradient(90deg,transparent,rgba(0,0,0,.08),transparent);
 }
-.logo img {
-  height: 40px;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
-  transition: filter .3s ease;
+/* ukuran logo mengikuti tinggi navbar, aman di semua layar */
+.logo img{
+  height: clamp(36px, calc(var(--nav-h) - 22px), 56px);
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); /* biar kebaca di hero */
+  transition: filter .3s ease, height .2s ease;
 }
 
-.navbar.is-solid .logo img {
+/* saat navbar solid putih, hilangkan shadow agar rapi */
+.navbar.is-solid .logo img{
   filter: none;
+}
+/* tweak di mobile: navbar biasanya lebih pendek */
+@media (max-width: 768px){
+  :root{ --nav-h: 64px; }
 }
