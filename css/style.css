@@ -135,8 +135,11 @@ h3 {
     left: 0;
     width: 100%;
     height: var(--navbar-height);
+    display: flex; align-items: center;
     z-index: 1000;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background: transparent;
+    backdrop-filter: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .navbar .container {
@@ -156,9 +159,9 @@ h3 {
 }
 
 .navbar__menu a {
-    color: var(--text-light);
+    color: #fff;
     font-weight: 700;
-    text-shadow: var(--shadow-text);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
     position: relative;
     padding-bottom: 0.5rem;
 }
@@ -180,13 +183,13 @@ h3 {
 }
 
 .navbar.is-solid {
-    background-color: var(--bg-light);
-    box-shadow: var(--shadow);
+   background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .navbar.is-solid .navbar__menu a {
-    color: var(--text-dark);
-    text-shadow: none;
+   color: #222;
+  text-shadow: none;
 }
 
 .navbar__toggle {
@@ -210,12 +213,7 @@ h3 {
     background-repeat: no-repeat;
 }
 
-.hero--home{
-  background-image: url('../hero-villa.webp '); /* atau ../hero-villa.webp */
-  background-position: center top;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
+.hero--home{ background-image: url('../hero-villa.webp ');} /* atau ../hero-villa.webp */
 
 .hero--investment { background-image: url('../assets/hero-investment.webp'); }
 .hero--services { background-image: url('../assets/hero-services.webp'); }
