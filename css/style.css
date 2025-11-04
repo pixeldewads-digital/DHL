@@ -180,7 +180,7 @@ p{color:#3b4a45;margin:0 0 1rem}
 .logo img:hover{ transform:scale(1.05) }
 
 /* tumpuk persis (white di hero, emerald saat solid) */
-.logo .logo--solid{ position:absolute; inset:0; opacity:0 }
+.logo .logo--solid{ position:absolute; inset:0; opacity:0; transition:opacity .25s ease; }
 .logo .logo--hero{ opacity:1 }
 
 /* saat navbar solid: tukar visibilitas & normalkan ukuran */
