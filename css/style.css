@@ -264,3 +264,57 @@ p{color:#DDEAE4;margin:0 0 1rem}
     transition: height .4s ease, top .4s ease;
   }
 }
+/* ===== LOGO: premium animations ===== */
+
+/* micro-spring on first reveal */
+.logo img{
+  opacity: 0;
+  transform: translateY(-6px) scale(.96);
+  transform-origin: left center;
+  transition: transform .28s ease, filter .28s ease;
+}
+
+/* trigger class (akan ditambah via JS) */
+.logo--animate img{
+  animation: logoSpring .7s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes logoSpring{
+  0%{ opacity:0; transform: translateY(-6px) scale(.96); filter: blur(1px); }
+  60%{ opacity:1; transform: translateY(0) scale(1.035); filter: blur(0); }
+  100%{ opacity:1; transform: translateY(0) scale(1); }
+}
+
+/* subtle 'shine' pass once on load (opsional: tambahkan class logo--shine) */
+.logo{ position: relative; display: inline-block; }
+.logo::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.25) 15%, transparent 32%);
+  transform: translateX(-120%) skewX(-12deg);
+  opacity: 0;
+}
+.logo--shine::after{
+  animation: logoShine .9s ease-out .2s both;
+}
+@keyframes logoShine{
+  0%{ transform: translateX(-120%) skewX(-12deg); opacity:0; }
+  20%{ opacity:1; }
+  100%{ transform: translateX(120%) skewX(-12deg); opacity:0; }
+}
+
+/* scroll morph: kecilkan dikit saat navbar solid */
+.navbar.is-solid .logo img{ transform: scale(.92); }
+
+/* visibility helpers (kalau pakai dua versi logo) */
+.logo--hero{ filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
+.navbar.is-solid .logo--hero{ filter: none; }
+
+/* hormati preferensi pengguna */
+@media (prefers-reduced-motion: reduce){
+  .logo img, .logo::after{ animation: none !important; transition: none !important; }
+}
+:root{ --nav-h: 84px; }                /* naikkan tinggi navbar sedikit */
+.logo img{ height: clamp(52px, calc(var(--nav-h) - 12px), 72px); }
+@media (max-width:768px){
+  :root{ --nav-h: 68px; }
+  .logo img{ height: clamp(46px, calc(var(--nav-h) - 10px), 60px); }
+}
