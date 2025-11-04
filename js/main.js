@@ -50,3 +50,16 @@ window.addEventListener('scroll', () => {
     }
 
 });
+
+// Trigger animasi logo sekali saat masuk viewport
+const logoEl = document.querySelector('.logo');
+if (logoEl){
+  const io = new IntersectionObserver(([e])=>{
+    if (e.isIntersecting){
+      logoEl.classList.add('logo--animate'); // jaga-jaga kalau belum ada
+      // logoEl.classList.add('logo--shine'); // bisa aktifkan kalau mau shine lagi
+      io.disconnect();
+    }
+  }, {threshold: .6});
+  io.observe(logoEl);
+}
