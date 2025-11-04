@@ -10,18 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Navbar Solid on Scroll
-    const navbar = document.querySelector('.navbar');
-
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('is-solid');
-            } else {
-                navbar.classList.remove('is-solid');
-            }
-        });
-    }
+   const navbar = document.querySelector('.navbar');
+if (navbar){
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('is-solid', window.scrollY > 50);
+  });
+}
     // js/main.js
 const hero = document.querySelector('.hero--home');
 window.addEventListener('scroll', () => {
