@@ -318,3 +318,16 @@ p{color:#DDEAE4;margin:0 0 1rem}
   :root{ --nav-h: 68px; }
   .logo img{ height: clamp(46px, calc(var(--nav-h) - 10px), 60px); }
 }
+.logo { position:relative; display:inline-block; }
+.logo img { display:block; height: clamp(46px, calc(var(--nav-h) - 10px), 60px); }
+
+/* tumpuk persis di posisi yang sama */
+.logo .logo--solid {
+  position:absolute; inset:0;
+  opacity:0; transition:opacity .25s ease;
+}
+.logo .logo--hero { opacity:1; transition:opacity .25s ease; }
+
+/* saat navbar solid: tukar visibilitas */
+.navbar.is-solid .logo .logo--hero  { opacity:0; }
+.navbar.is-solid .logo .logo--solid { opacity:1; }
