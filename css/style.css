@@ -284,23 +284,6 @@ p{color:#DDEAE4;margin:0 0 1rem}
   100%{ opacity:1; transform: translateY(0) scale(1); }
 }
 
-/* subtle 'shine' pass once on load (opsional: tambahkan class logo--shine) */
-.logo{ position: relative; display: inline-block; }
-.logo::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.25) 15%, transparent 32%);
-  transform: translateX(-120%) skewX(-12deg);
-  opacity: 0;
-}
-.logo--shine::after{
-  animation: logoShine .9s ease-out .2s both;
-}
-@keyframes logoShine{
-  0%{ transform: translateX(-120%) skewX(-12deg); opacity:0; }
-  20%{ opacity:1; }
-  100%{ transform: translateX(120%) skewX(-12deg); opacity:0; }
-}
-
 /* scroll morph: kecilkan dikit saat navbar solid */
 .navbar.is-solid .logo img{ transform: scale(.92); }
 
@@ -313,13 +296,9 @@ p{color:#DDEAE4;margin:0 0 1rem}
   .logo img, .logo::after{ animation: none !important; transition: none !important; }
 }
 :root{ --nav-h: 84px; }                /* naikkan tinggi navbar sedikit */
-.logo img{ height: clamp(52px, calc(var(--nav-h) - 12px), 72px); }
-@media (max-width:768px){
-  :root{ --nav-h: 68px; }
-  .logo img{ height: clamp(46px, calc(var(--nav-h) - 10px), 60px); }
-}
+
 .logo { position:relative; display:inline-block; }
-.logo img { display:block; height: clamp(46px, calc(var(--nav-h) - 10px), 60px); }
+.logo img { display:block; height: clamp(52px, calc(var(--nav-h) - 10px), 60px); }
 
 /* tumpuk persis di posisi yang sama */
 .logo .logo--solid {
