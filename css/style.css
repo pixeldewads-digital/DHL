@@ -301,9 +301,7 @@ p{color:#DDEAE4;margin:0 0 1rem}
 .logo img { display:block; height: clamp(52px, calc(var(--nav-h) - 10px), 60px); }
 
 /* tumpuk persis di posisi yang sama */
-.logo .logo--solid {
-  position:absolute; inset:0;
-  opacity:0; transition:opacity .25s ease;
+.logo .logo--solid {  opacity:0; transition:opacity .25s ease;
 }
 .logo .logo--hero { opacity:1; transition:opacity .25s ease; }
 
