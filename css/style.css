@@ -188,7 +188,7 @@ p{color:#3b4a45;margin:0 0 1rem}
 .navbar.is-solid .logo .logo--hero{ opacity:0 }
 .navbar.is-solid .logo .logo--solid{ opacity:1 }
 
-/* micro-spring on first reveal */
+/* micro-spring on first reveal 
 .logo img{
   opacity:0; transform: translateY(-6px) scale(.96);
   transform-origin:left center;
@@ -198,7 +198,7 @@ p{color:#3b4a45;margin:0 0 1rem}
   0%{ opacity:0; transform: translateY(-6px) scale(.96); filter:blur(1px) }
   60%{ opacity:1; transform: translateY(0) scale(1.035); filter:blur(0) }
   100%{ opacity:1; transform: translateY(0) scale(1) }
-}
+}*/
 
 /* 12) Mobile tweaks */
 @media (max-width:820px){
