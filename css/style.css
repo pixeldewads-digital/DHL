@@ -332,21 +332,7 @@ p{color:#3b4a45;margin:0 0 1rem}
   .sticky-cta{ display:none }
 }
 
-/* ========= Back to top ========= */
-.back-to-top{
-  position:fixed; right:18px; bottom:90px;
-  width:44px; height:44px; border-radius:50%;
-  display:grid; place-items:center;
-  background:#111; color:#fff; opacity:0; pointer-events:none;
-  box-shadow:0 10px 30px rgba(0,0,0,.18);
-  transition: opacity .25s ease, transform .25s ease, background .2s ease;
-  z-index: 997;
-}
-.back-to-top.show{
-  opacity:1; pointer-events:auto; transform: translateY(0);
-}
-.back-to-top:hover{ background:#000 }
-.back-to-top svg{ width:18px; height:18px }
+
 
 /* ========= Focus ring global ========= */
 a:focus-visible, button:focus-visible, .btn:focus-visible{
