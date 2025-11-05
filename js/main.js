@@ -1,76 +1,60 @@
-// js/main.js — Dewata Home Living (final)
+// js/main.js — Dewata Home Living (trial upgrade)
 
 /* Helpers */
 const prefersReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* 1) Navbar: solid saat scroll */
 function handleNavbarSolid() {
   const navbar = document.querySelector('.navbar');
   if (!navbar) return;
   const onScroll = () => navbar.classList.toggle('is-solid', window.scrollY > 50);
-  onScroll(); // initial
+  onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
-/* 2) Mobile menu (mendukung selector baru & lama) */
 function handleMobileMenu() {
-  // Baru
   const burgerNew = document.querySelector('.hamburger');
   const linksNew  = document.querySelector('.nav-links');
-  // Lama (fallback)
   const burgerOld = document.querySelector('.navbar__toggle');
   const linksOld  = document.querySelector('.navbar__menu');
 
   const burger = burgerNew || burgerOld;
   const menu   = linksNew  || linksOld;
-
   if (!burger || !menu) return;
 
   const openClass = linksNew ? 'show' : 'is-active';
-
   const toggle = () => {
     const isOpen = menu.classList.toggle(openClass);
     burger.setAttribute('aria-expanded', String(isOpen));
-    // lock scroll di mobile ketika menu terbuka
     document.documentElement.style.overflow = isOpen ? 'hidden' : '';
   };
 
   burger.addEventListener('click', toggle);
-
-  // Tutup saat klik link (UX lebih baik)
-  menu.querySelectorAll('a').forEach(a =>
-    a.addEventListener('click', () => {
-      if (menu.classList.contains(openClass)) toggle();
-    })
-  );
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    if (menu.classList.contains(openClass)) toggle();
+  }));
 }
 
-/* 3) Parallax hero (ringan + aman) */
 function handleHeroParallax() {
   const hero = document.querySelector('.hero--home');
   if (!hero || prefersReduceMotion) return;
 
   let ticking = false;
-  const maxOffset = 40; // px
-
+  const maxOffset = 40;
   const update = () => {
     const y = Math.min(maxOffset, window.scrollY * 0.08);
     hero.style.backgroundPosition = `center calc(0px + ${y}px)`;
     ticking = false;
   };
-
   const onScroll = () => {
     if (!ticking) {
       requestAnimationFrame(update);
       ticking = true;
     }
   };
-
   update();
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
-/* 4) Fade-in on scroll */
 function handleFadeIn() {
   const els = document.querySelectorAll('.fade-in');
   if (!els.length || prefersReduceMotion) return;
@@ -87,13 +71,11 @@ function handleFadeIn() {
   els.forEach(el => io.observe(el));
 }
 
-/* 5) Animasi logo sekali saat terlihat */
 function handleLogoOnce() {
   const logo = document.querySelector('.logo');
   if (!logo) return;
 
   if (prefersReduceMotion) {
-    // pastikan tidak tersangkut invisible
     const heroImg = logo.querySelector('.logo--hero');
     if (heroImg) heroImg.style.opacity = '1';
     return;
@@ -101,12 +83,83 @@ function handleLogoOnce() {
 
   const io = new IntersectionObserver(([e]) => {
     if (e.isIntersecting) {
-      logo.classList.add('logo--animate'); // memicu animasi hero saja (CSS sudah dibatasi)
+      logo.classList.add('logo--animate');
       io.disconnect();
     }
   }, { threshold: 0.6 });
 
   io.observe(logo);
+}
+
+/* NEW: Active nav by section */
+function handleActiveSection() {
+  const nav = document.querySelector('.nav-links');
+  if (!nav) return;
+
+  const links = [...nav.querySelectorAll('a[href^="index.html"], a[href^="#"], a[href$=".html"]')];
+  const sectionIds = ['why','packages','portfolio']; // sesuai index.html di bawah
+  const sections = sectionIds
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  if (!sections.length) return;
+
+  const setActive = (id) => {
+    nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+    // Prioritaskan anchor ke #id
+    const anchor = nav.querySelector(`a[href="#${id}"]`);
+    if (anchor) { anchor.classList.add('active'); return; }
+    // Fallback: tetap aktifkan Home saat di section
+    const home = nav.querySelector('a[href="index.html"]');
+    home?.classList.add('active');
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        setActive(id);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  sections.forEach(sec => io.observe(sec));
+}
+
+/* NEW: Sticky CTA & Back to Top */
+function handleStickyHelpers() {
+  const sticky = document.querySelector('.sticky-cta');
+  const backTop = document.querySelector('.back-to-top');
+
+  const onScroll = () => {
+    const show = window.scrollY > 400;
+    if (sticky && window.innerWidth <= 820) {
+      sticky.classList.toggle('show', show);
+    }
+    if (backTop) {
+      backTop.classList.toggle('show', show);
+    }
+  };
+
+  if (backTop) {
+    backTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+/* Simple WA click tracking (console) */
+function trackWhatsAppClicks() {
+  document.querySelectorAll('a[href*="wa.me"]').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      try { console.log('WA click:', window.location.pathname); } catch(_) {}
+      // window.gtag?.('event','whatsapp_click',{location:window.location.pathname});
+    });
+  });
 }
 
 /* Init */
@@ -116,4 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleHeroParallax();
   handleFadeIn();
   handleLogoOnce();
+  handleActiveSection();
+  handleStickyHelpers();
+  trackWhatsAppClicks();
 });
