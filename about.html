@@ -1,60 +1,76 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tentang – Dewata Home Living</title>
-  <meta name="description" content="Tentang Dewata Home Living: kontraktor & konsultan investasi properti di Bali.">
-  <meta property="og:image" content="assets/hero-about.webp">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tentang Kami — Dewata Home Living</title>
+  <meta name="description" content="Profil, nilai, dan pendekatan kerja Dewata Home Living.">
   <link rel="icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="css/style.css?v=16">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/hero-about.webp" as="image">
+  <link rel="stylesheet" href="css/style.css?v=18">
 </head>
 <body>
+
 <header class="navbar">
   <div class="navbar-container">
-    <a href="index.html" class="logo"><img src="assets/logo-dhl.svg" alt="DHL" style="height:40px"></a>
-    <nav class="nav-links">
-      <a href="index.html">Home</a><a href="investment.html">Paket Investasi</a>
+    <a href="index.html" class="logo logo--animate" aria-label="Dewata Home Living">
+      <img class="logo--hero"  src="assets/logo-dhl-white.png" alt="Dewata Home Living">
+      <img class="logo--solid" src="assets/logo-dhl.png"       alt="" aria-hidden="true">
+    </a>
+    <nav class="nav-links" aria-label="Navigasi utama">
+      <a href="index.html">Home</a>
+      <a href="investment.html">Paket Investasi</a>
       <a href="services.html">Jasa Konstruksi</a>
       <a href="portfolio.html">Portfolio</a>
       <a href="about.html" class="active">Tentang</a>
       <a href="contact.html">Kontak</a>
     </nav>
-    <button class="hamburger" aria-label="Buka menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
 <main>
   <section class="hero hero--home" style="background-image:url('assets/hero-about.webp')">
     <div class="container">
-      <h1 class="reveal-head">Tentang Dewata</h1>
-      <p class="reveal-sub">Kontraktor & Konsultan Investasi Properti di Bali</p>
+      <h1>Tentang Dewata Home Living</h1>
+      <p>Membangun aset kost & villa yang disiplin, transparan, dan berkelas.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container text-container">
+      <h2 class="fade-in">Visi & Misi</h2>
+      <p class="fade-in">
+        Menjadi mitra tepercaya untuk investasi properti di Bali dengan standar dokumentasi, desain, dan pengawasan berkualitas.
+      </p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="text-center fade-in" style="max-width:800px;margin:0 auto">
-        <h2>Misi Kami</h2>
-        <p>Kami membangun aset jangka panjang melalui pendekatan desain yang efisien, pengawasan disiplin, dan transparansi biaya.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--dark">
-    <div class="container">
-      <h2 class="text-center fade-in">Nilai Utama</h2>
+      <h2 class="text-center fade-in">Proses Kerja</h2>
       <div class="grid-3">
-        <div class="card fade-in"><h3>Transparansi</h3><p>RAB jelas, update rutin, tanpa biaya tersembunyi.</p></div>
-        <div class="card fade-in"><h3>Kualitas</h3><p>Material terkurasi & kontrol mutu ketat.</p></div>
-        <div class="card fade-in"><h3>Keberlanjutan</h3><p>Desain mudah dirawat & efisien energi.</p></div>
+        <div class="card fade-in">
+          <h3>Analisis</h3>
+          <p>Studi kelayakan, tujuan investasi, & strategi desain.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Eksekusi</h3>
+          <p>Pelaksanaan terencana dengan checklist QC tiap fase.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Serah Terima</h3>
+          <p>Dokumentasi lengkap + panduan perawatan aset.</p>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="footer"><div class="container"><p>© 2024 Dewata Home Living.</p></div></footer>
-<a href="https://wa.me/628282569675" class="whatsapp-float" aria-label="WhatsApp"></a>
+<footer class="footer"><div class="container"><p>&copy; 2025 Dewata Home Living.</p></div></footer>
+<a href="https://wa.me/628282569675" class="whatsapp-float" aria-label="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#fff" width="28" height="28"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157z"/></svg>
+</a>
 <script src="js/main.js"></script>
 </body>
 </html>
