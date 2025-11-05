@@ -129,24 +129,13 @@ function handleActiveSection() {
 /* NEW: Sticky CTA & Back to Top */
 function handleStickyHelpers() {
   const sticky = document.querySelector('.sticky-cta');
-  const backTop = document.querySelector('.back-to-top');
-
+  
   const onScroll = () => {
     const show = window.scrollY > 400;
     if (sticky && window.innerWidth <= 820) {
       sticky.classList.toggle('show', show);
     }
-    if (backTop) {
-      backTop.classList.toggle('show', show);
-    }
-  };
-
-  if (backTop) {
-    backTop.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+  
 
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
