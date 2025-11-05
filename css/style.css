@@ -362,7 +362,7 @@ section[id]{
 /* ====== LOGO: efek membesar saat navbar solid ====== */
 .logo img {
   height: clamp(60px, calc(var(--nav-h) - 8px), 90px);
-  transition: height .4s ease, transform .4s ease;
+  transition: transform .45s cubic-bezier(.3,.6,.2,1), height .45s ease;
   transform-origin: center;
 }
 
@@ -376,3 +376,7 @@ section[id]{
 /* Pastikan versi putih & solid tetap sinkron */
 .navbar.is-solid .logo--hero { opacity: 0; }
 .navbar.is-solid .logo--solid { opacity: 1; }
+
+
+  transition: transform .45s cubic-bezier(.3,.6,.2,1), height .45s ease;
+
