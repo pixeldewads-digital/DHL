@@ -2,22 +2,22 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paket Investasi – Dewata Home Living</title>
-  <meta name="description" content="Paket investasi kost & villa di Bali: estimasi biaya, durasi, dan simulasi RAB transparan.">
-  <meta property="og:title" content="Paket Investasi – Dewata Home Living">
-  <meta property="og:description" content="Paket investasi kost & villa di Bali. Estimasi biaya & durasi lengkap.">
-  <meta property="og:image" content="assets/hero-investment.webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paket Investasi — Dewata Home Living</title>
+  <meta name="description" content="Paket investasi kost & villa di Bali dengan RAB transparan, timeline jelas, dan pengawasan profesional.">
   <link rel="icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="css/style.css?v=16">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/hero-investment.webp" as="image">
+  <link rel="stylesheet" href="css/style.css?v=18">
 </head>
 <body>
 
 <header class="navbar">
   <div class="navbar-container">
-    <a href="index.html" class="logo" aria-label="DHL"><img src="assets/logo-dhl.svg" alt="DHL" style="height:40px"></a>
-    <nav class="nav-links">
+    <a href="index.html" class="logo logo--animate" aria-label="Dewata Home Living">
+      <img class="logo--hero"  src="assets/logo-dhl-white.png" alt="Dewata Home Living">
+      <img class="logo--solid" src="assets/logo-dhl.png"       alt="" aria-hidden="true">
+    </a>
+    <nav class="nav-links" aria-label="Navigasi utama">
       <a href="index.html">Home</a>
       <a href="investment.html" class="active">Paket Investasi</a>
       <a href="services.html">Jasa Konstruksi</a>
@@ -25,17 +25,17 @@
       <a href="about.html">Tentang</a>
       <a href="contact.html">Kontak</a>
     </nav>
-    <button class="hamburger" aria-label="Buka menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
 <main>
   <section class="hero hero--home" style="background-image:url('assets/hero-investment.webp')">
     <div class="container">
-      <h1 class="reveal-head">Paket Investasi</h1>
-      <p class="reveal-sub">Kost & Villa – Estimasi Biaya, Durasi, dan Proyeksi</p>
-      <div class="hero-buttons reveal-cta">
-        <a href="https://wa.me/628282569675" class="btn btn-primary">Minta Simulasi RAB</a>
+      <h1>Paket Investasi Bali</h1>
+      <p>RAB transparan • Progres terukur • Return optimal</p>
+      <div class="hero-buttons">
+        <a href="https://wa.me/628282569675" class="btn btn-primary">Konsultasi Investasi</a>
         <a href="#paket" class="btn btn-outline">Lihat Paket</a>
       </div>
     </div>
@@ -47,40 +47,51 @@
       <div class="grid-3">
         <div class="card fade-in">
           <h3>Kost 8 Kamar</h3>
-          <p class="price">Mulai Rp 400 Jt</p>
-          <p>Durasi 4–5 bulan • Struktur + Finishing standar</p>
-          <a href="https://wa.me/628282569675?text=Simulasi%20RAB%20Kost%208%20kamar" class="btn btn-primary">Minta RAB</a>
+          <p class="price">Mulai dari Rp 400 Jt</p>
+          <p>Durasi: 4–5 Bulan</p>
+          <p>RAB detail, desain efisien, pengawasan mingguan.</p>
         </div>
         <div class="card fade-in">
           <h3>Kost 14 Kamar</h3>
-          <p class="price">Mulai Rp 700 Jt</p>
-          <p>Durasi 6–7 bulan • Opsional furnitur & lanskap</p>
-          <a href="https://wa.me/628282569675?text=Simulasi%20RAB%20Kost%2014%20kamar" class="btn btn-primary">Minta RAB</a>
+          <p class="price">Mulai dari Rp 700 Jt</p>
+          <p>Durasi: 6–7 Bulan</p>
+          <p>Optimasi lahan & utilities, potensi sewa maksimal.</p>
         </div>
         <div class="card fade-in">
           <h3>Villa Eksklusif</h3>
-          <p class="price">Mulai Rp 1,2 M</p>
-          <p>Durasi 8–10 bulan • Desain tropis-modern</p>
-          <a href="https://wa.me/628282569675?text=Simulasi%20RAB%20Villa" class="btn btn-primary">Minta RAB</a>
+          <p class="price">Mulai dari Rp 1,2 M</p>
+          <p>Durasi: 8–10 Bulan</p>
+          <p>Desain tropis-modern, material premium.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--dark">
+  <section class="section">
     <div class="container">
-      <h2 class="text-center fade-in">Termasuk dalam Paket</h2>
+      <h2 class="text-center fade-in">Skema & Timeline</h2>
       <div class="grid-3">
-        <div class="card fade-in"><h3>Desain 3D + Gambar Kerja</h3><p>Arsitektur, struktur, MEP sesuai regulasi setempat.</p></div>
-        <div class="card fade-in"><h3>RAB Transparan</h3><p>Rincian material & tenaga secara jelas dan terukur.</p></div>
-        <div class="card fade-in"><h3>Pengawasan Berkala</h3><p>Laporan progres mingguan & dokumentasi foto/video.</p></div>
+        <div class="card fade-in">
+          <h3>Pra-Proyek</h3>
+          <p>Survei lahan, studi kelayakan, & estimasi awal RAB.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Desain & Perizinan</h3>
+          <p>Gambar kerja, 3D/visual, & perizinan terkait.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Konstruksi</h3>
+          <p>Pelaksanaan terjadwal, laporan mingguan, QC ketat.</p>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="footer"><div class="container"><p>© 2024 Dewata Home Living.</p></div></footer>
-<a href="https://wa.me/628282569675" class="whatsapp-float" aria-label="WhatsApp"></a>
+<footer class="footer"><div class="container"><p>&copy; 2025 Dewata Home Living.</p></div></footer>
+<a href="https://wa.me/628282569675" class="whatsapp-float" aria-label="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#fff" width="28" height="28"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157z"/></svg>
+</a>
 <script src="js/main.js"></script>
 </body>
 </html>
