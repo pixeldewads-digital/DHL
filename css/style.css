@@ -359,3 +359,20 @@ a:focus-visible, button:focus-visible, .btn:focus-visible{
 section[id]{
   scroll-margin-top: calc(var(--nav-h) + 20px);
 }
+/* ====== LOGO: efek membesar saat navbar solid ====== */
+.logo img {
+  height: clamp(60px, calc(var(--nav-h) - 8px), 90px);
+  transition: height .4s ease, transform .4s ease;
+  transform-origin: center;
+}
+
+/* Saat navbar solid: perbesar sedikit + efek halus */
+.navbar.is-solid .logo img {
+  height: clamp(70px, calc(var(--nav-h) + 10px), 100px);
+  transform: scale(1.08);
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.25));
+}
+
+/* Pastikan versi putih & solid tetap sinkron */
+.navbar.is-solid .logo--hero { opacity: 0; }
+.navbar.is-solid .logo--solid { opacity: 1; }
