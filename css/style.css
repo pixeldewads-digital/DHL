@@ -140,7 +140,7 @@ p{color:#3b4a45;margin:0 0 1rem}
 }
 .hero .container{position:relative;z-index:2}
 .hero--home{
-  background:url('../assets/hero-villa-bright.png') center/cover no-repeat;
+  background:url('../assets/hero_back.png') center/cover no-repeat;
 }
 .hero--home::before{
   content:'';
