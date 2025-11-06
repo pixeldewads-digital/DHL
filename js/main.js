@@ -222,6 +222,21 @@ function handleAutoHideHeader() {
   update();
   window.addEventListener('scroll', onScroll, { passive: true });
 }
+/* FAQ toggle */
+function handleFAQ(){
+  const qs = document.querySelectorAll('.faq-q');
+  if (!qs.length) return;
+  qs.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      const next = btn.nextElementSibling;
+      if (next && next.classList.contains('faq-a')) {
+        next.classList.toggle('show', !expanded);
+      }
+    });
+  });
+}
 
 
 /* Init */
@@ -234,4 +249,5 @@ document.addEventListener('DOMContentLoaded', () => {
   handleActiveSection();
   trackWhatsAppClicks();
   handleAutoHideHeader();
+  handleFAQ();
 });
