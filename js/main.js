@@ -161,4 +161,76 @@ document.addEventListener('DOMContentLoaded', () => {
   handleActiveSection();
   handleStickyHelpers();
   trackWhatsAppClicks();
+  handleAutoHideHeader();
 });
+/* === Auto-hide header on scroll (sticky) === */
+function handleAutoHideHeader() {
+  const header = document.querySelector('.navbar');
+  if (!header) return;
+
+  // ambang mulai auto-hide
+  const threshold = 120;
+  let lastY = window.scrollY;
+  let ticking = false;
+
+  // helper: apakah mobile menu sedang terbuka?
+  const isMenuOpen = () => {
+    const linksNew = document.querySelector('.nav-links');
+    const linksOld = document.querySelector('.navbar__menu');
+    return (linksNew && linksNew.classList.contains('show')) ||
+           (linksOld && linksOld.classList.contains('is-active'));
+  };
+
+  const update = () => {
+    const y = window.scrollY;
+
+    // kunci saat menu terbuka (supaya header tetap terlihat)
+    if (isMenuOpen()) {
+      header.classList.remove('hide-on-scroll');
+      header.classList.add('is-locked');
+      lastY = y;
+      ticking = false;
+      return;
+    } else {
+      header.classList.remove('is-locked');
+    }
+
+    // hanya auto-hide setelah melewati threshold
+    if (y > threshold) {
+      const scrollingDown = y > lastY + 2;
+      const scrollingUp   = y < lastY - 2;
+
+      if (scrollingDown) {
+        header.classList.add('hide-on-scroll');
+      } else if (scrollingUp) {
+        header.classList.remove('hide-on-scroll');
+      }
+    } else {
+      // di atas threshold: header selalu terlihat
+      header.classList.remove('hide-on-scroll');
+    }
+
+    lastY = y;
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  };
+
+  // juga kunci/unlock saat tombol burger diklik
+  const burgerNew = document.querySelector('.hamburger');
+  const burgerOld = document.querySelector('.navbar__toggle');
+  [burgerNew, burgerOld].filter(Boolean).forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle akan mengubah class menu; jalankan update setelah next frame
+      requestAnimationFrame(update);
+    });
+  });
+
+  update();
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
