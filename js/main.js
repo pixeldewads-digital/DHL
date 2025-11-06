@@ -137,5 +137,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { rootMargin: '-30% 0px -50% 0px', threshold: [0.25, 0.5, 0.75] });
     sections.forEach((sec) => secIO.observe(sec));
+    
+      // ===== 7) Correct offset when page loads with hash =====
+  if (location.hash && location.hash !== '#') {
+    // beri sedikit delay supaya layout/height sudah final
+    setTimeout(() => {
+      const id = decodeURIComponent(location.hash);
+      const el = document.querySelector(id);
+      if (!el) return;
+      const navH = navbar?.offsetHeight || 90;
+      const y = Math.max(window.scrollY + el.getBoundingClientRect().top - (navH + 12), 0);
+      window.scrollTo({ top: y, behavior: 'instant' });
+      // paksa state 'scrolled' supaya warna navbar sesuai ketika mendarat di tengah halaman
+      navbar.classList.toggle('scrolled', true);
+    }, 0);
+  }
   }
 });
