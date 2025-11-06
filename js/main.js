@@ -151,19 +151,7 @@ function trackWhatsAppClicks() {
   });
 }
 
-/* Init */
-document.addEventListener('DOMContentLoaded', () => {
-  handleNavbarSolid();
-  handleMobileMenu();
-  handleHeroParallax();
-  handleFadeIn();
-  handleLogoOnce();
-  handleActiveSection();
-  handleStickyHelpers();
-  trackWhatsAppClicks();
-  handleAutoHideHeader();
-});
-/* === Auto-hide header on scroll (sticky) === */
+  /* === Auto-hide header on scroll (sticky) === */
 function handleAutoHideHeader() {
   const header = document.querySelector('.navbar');
   if (!header) return;
@@ -234,3 +222,16 @@ function handleAutoHideHeader() {
   update();
   window.addEventListener('scroll', onScroll, { passive: true });
 }
+
+
+/* Init */
+document.addEventListener('DOMContentLoaded', () => {
+  handleNavbarSolid();
+  handleMobileMenu();
+  handleHeroParallax();
+  handleFadeIn();
+  handleLogoOnce();
+  handleActiveSection();
+  trackWhatsAppClicks();
+  handleAutoHideHeader();
+});
