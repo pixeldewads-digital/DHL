@@ -78,3 +78,44 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', parallax, { passive: true });
   }
 });
+/* ===== FAQ: close others (optional) ===== */
+document.querySelectorAll('.why-faq .faq summary').forEach((sum) => {
+  sum.addEventListener('click', (e) => {
+    const current = sum.parentElement;
+    document.querySelectorAll('.why-faq .faq').forEach(d => {
+      if (d !== current) d.removeAttribute('open');
+    });
+  });
+});
+
+/* ===== KPIs: count-up on view ===== */
+(function(){
+  const counters = document.querySelectorAll('.kpis .count');
+  if (!counters.length) return;
+
+  const animate = (el) => {
+    const end = +el.dataset.target || 0;
+    const step = Math.max(1, Math.ceil(end / 60)); // ±1s
+    let cur = 0;
+    const tick = () => {
+      cur += step;
+      if (cur >= end) { el.textContent = end; return; }
+      el.textContent = cur;
+      requestAnimationFrame(tick);
+    };
+    tick();
+  };
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(en => {
+      if (en.isIntersecting){
+        en.target.querySelectorAll('.count').forEach(animate);
+        obs.unobserve(en.target);
+      }
+    });
+  }, {threshold:.3});
+
+  const band = document.querySelector('.kpis');
+  if (band) io.observe(band);
+})();
+
