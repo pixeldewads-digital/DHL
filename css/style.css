@@ -24,8 +24,8 @@ body{
   font-size:16px;
   line-height:1.7;
   color:var(--charcoal);
-  background: radial-gradient(circle at top right,#f3f5f4 0%,#e9eceb 40%,#dfe5e2 100%);
-  background-attachment:fixed;
+  background: linear-gradient(135deg, #f5f8f7 0%, #eaf0ef 40%, #dde5e2 100%);
+  background-attachment: fixed;
   overflow-x:hidden;
 }
 img{max-width:100%;display:block}
