@@ -366,3 +366,29 @@ section[id]{
 
   transition: transform .45s cubic-bezier(.3,.6,.2,1), height .45s ease;
 
+/* === Navbar: sticky + auto-hide on scroll === */
+.navbar{
+  position: sticky;      /* dari fixed -> sticky */
+  top: 0;
+  z-index: 1000;
+  transition: transform .25s ease, background .35s ease, box-shadow .25s ease;
+  will-change: transform;
+}
+
+/* sembunyi saat scroll turun */
+.navbar.hide-on-scroll{
+  transform: translateY(-100%);
+}
+
+/* kalau menu mobile terbuka, jangan disembunyikan */
+.navbar.is-locked{
+  transform: translateY(0) !important;
+}
+
+/* (opsional) kurangi kompensasi padding hero bila sebelumnya khusus untuk fixed header */
+.hero{
+  /* kalau sebelumnya: padding: calc(var(--section-y) + var(--nav-h)) 0 var(--section-y); */
+  padding: var(--section-y) 0; /* karena header sticky ikut layout */
+}
+
+
