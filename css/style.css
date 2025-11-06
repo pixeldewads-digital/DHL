@@ -144,9 +144,20 @@ p{line-height:1.7;color:#2b2b2b}
 }
 .portfolio-item:hover .portfolio-item__caption{bottom:0}
 
-/* Fade-in */
-.fade-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease}
-.fade-in.visible{opacity:1;transform:none}
+/* Default: SEMUA TERLIHAT (fallback tanpa JS) */
+.fade-in { opacity: 1; transform: none; }
+
+/* Hanya jika JS aktif baru disembunyikan lebih dulu */
+.has-js .fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.has-js .fade-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
 
 /* Footer */
 .footer{background:#0B0F0D;color:#CFE1DA;text-align:center;padding:28px 0}
