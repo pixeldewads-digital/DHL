@@ -1,3 +1,4 @@
+
 // ============ main.js (navbar clean) ============
 document.addEventListener('DOMContentLoaded', () => {
   const navbar    = document.getElementById('navbar');
@@ -5,6 +6,57 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('navToggle');
   const dropToggle = document.querySelector('.nav-drop-toggle');
   const dropWrap   = document.querySelector('.nav-dropdown');
+
+  /* main.js (robust) */
+(() => {
+  try {
+    // Navbar solid on scroll
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+      const onScroll = () => navbar.classList.toggle('is-solid', window.scrollY > 50);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // Parallax halus hero (opsional)
+    const hero = document.querySelector('.hero--home');
+    if (hero) {
+      const par = () => {
+        const y = Math.min(40, window.scrollY * 0.08);
+        hero.style.backgroundPosition = `center calc(0px + ${y}px)`;
+      };
+      window.addEventListener('scroll', par, { passive: true });
+      par();
+    }
+
+    // Fade-in observer (hanya jika JS aktif)
+    const items = document.querySelectorAll('.fade-in');
+    if (items.length) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            en.target.classList.add('visible');
+            obs.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      items.forEach(el => io.observe(el));
+    }
+
+    // FAQ close others (kalau ada)
+    document.querySelectorAll('.why-faq .faq summary').forEach(sum => {
+      sum.addEventListener('click', () => {
+        const cur = sum.parentElement;
+        document.querySelectorAll('.why-faq .faq').forEach(d => { if (d !== cur) d.removeAttribute('open'); });
+      });
+    });
+
+  } catch (e) {
+    console.error('main.js error:', e);
+    // fallback: tampilkan semua fade-in
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  }
+})();
 
   // 1) Solid on scroll
   const onScroll = () => {
