@@ -37,7 +37,7 @@
 @media(max-width:1023px){.mobile-menu.show{display:flex}}
 
 /* ===== HERO ===== */
-.hero{position:relative;height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background:url('assets/hero-villa-bright.webp') center/cover no-repeat;}
+.hero{position:relative;height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background:url('../assets/hero_back.png') center/cover no-repeat;}
 .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);}
 .hero-container{position:relative;z-index:2;max-width:900px;padding:0 1rem}
 .hero h1{font-family:"Playfair Display",serif;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:1rem;}
