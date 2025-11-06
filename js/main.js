@@ -1,156 +1,80 @@
-// js/main.js — DHL (navbar transparan→solid, auto-hide, logo swap, mobile menu, fade-in, parallax, smooth anchor)
-
+// ============ main.js (navbar clean) ============
 document.addEventListener('DOMContentLoaded', () => {
-  const navbar = document.getElementById('navbar');
-  const burger = document.getElementById('burger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const mobileDropdownBtn = document.getElementById('mobileDropdownBtn');
-  const mobileDropdown = document.getElementById('mobileDropdown');
-  const hero = document.querySelector('.hero');
-  const fades = document.querySelectorAll('.fade-in');
+  const navbar    = document.getElementById('navbar');
+  const navLinks  = document.getElementById('navLinks');
+  const navToggle = document.getElementById('navToggle');
+  const dropToggle = document.querySelector('.nav-drop-toggle');
+  const dropWrap   = document.querySelector('.nav-dropdown');
 
-  // ===== 1) Navbar solid + auto-hide =====
-  let lastY = window.scrollY;
-  let ticking = false;
-  const threshold = 120;
-
-  const onScrollUpdate = () => {
-    const y = window.scrollY;
-
-    // solid state (sekalian memicu swap logo via CSS .scrolled)
-    navbar.classList.toggle('scrolled', y > 20);
-
-    // auto-hide saat scroll turun, show saat scroll naik
-    if (y > threshold && y > lastY + 2) {
-      navbar.classList.add('hide');
-    } else if (y < lastY - 2) {
-      navbar.classList.remove('hide');
-    }
-
-    // parallax hero kecil
-    if (hero) {
-      const p = Math.min(40, y * 0.08);
-      hero.style.backgroundPosition = `center calc(50% + ${p}px)`;
-    }
-
-    lastY = y;
-    ticking = false;
-  };
-
+  // 1) Solid on scroll
   const onScroll = () => {
-    if (!ticking) {
-      requestAnimationFrame(onScrollUpdate);
-      ticking = true;
-    }
+    if (!navbar) return;
+    navbar.classList.toggle('is-solid', window.scrollY > 20);
   };
-
-  onScrollUpdate();
+  onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // ===== 2) Mobile menu toggle + lock body scroll =====
-  const lockBody = (lock) => {
-    document.documentElement.style.overflow = lock ? 'hidden' : '';
-    document.body.style.touchAction = lock ? 'none' : '';
-  };
-
-  const closeMobileMenu = () => {
-    mobileMenu.classList.remove('show');
-    lockBody(false);
-  };
-
-  burger?.addEventListener('click', () => {
-    mobileMenu.classList.toggle('show');
-    lockBody(mobileMenu.classList.contains('show'));
-  });
-
-  // Tutup saat klik link anchor di mobile
-  mobileMenu?.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="#"]');
-    if (a) closeMobileMenu();
-  });
-
-  // Tutup saat resize ke desktop
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 992) closeMobileMenu();
-  });
-
-  // ===== 3) Mobile services dropdown =====
-  mobileDropdownBtn?.addEventListener('click', () => {
-    mobileDropdown?.classList.toggle('hidden');
-  });
-
-  // ESC to close
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeMobileMenu();
-      mobileDropdown?.classList.add('hidden');
-    }
-  });
-
-  // ===== 4) Fade-in on scroll =====
-  if (fades.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add('visible');
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    fades.forEach((el) => io.observe(el));
+  // 2) Mobile toggle
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const shown = navLinks.classList.toggle('show');
+      navToggle.setAttribute('aria-expanded', String(shown));
+    });
   }
 
-  // ===== 5) Smooth anchor scroll (offset navbar) =====
-  const getNavH = () => navbar?.offsetHeight || 90;
-
-  const smoothScrollTo = (hash) => {
-    const el = document.querySelector(hash);
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const target = window.scrollY + rect.top - (getNavH() + 12);
-    window.scrollTo({ top: Math.max(target, 0), behavior: 'smooth' });
-  };
-
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    const hash = a.getAttribute('href');
-    if (hash && hash !== '#') {
-      e.preventDefault();
-      smoothScrollTo(hash);
-      history.pushState(null, '', hash);
-    }
-  });
-
-  // ===== 6) Active link highlight by section =====
-  const sections = Array.from(document.querySelectorAll('section[id]'));
-  if (sections.length) {
-    const secIO = new IntersectionObserver((entries) => {
-      const vis = entries
-        .filter((en) => en.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (vis) {
-        const id = `#${vis.target.id}`;
-        document
-          .querySelectorAll('.nav-links a[href^="#"]')
-          .forEach((link) => link.classList.toggle('active', link.getAttribute('href') === id));
+  // 3) Dropdown (click)
+  if (dropToggle && dropWrap) {
+    dropToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = dropWrap.classList.toggle('open');
+      dropToggle.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => {
+      if (!dropWrap.contains(e.target)) {
+        dropWrap.classList.remove('open');
+        dropToggle.setAttribute('aria-expanded', 'false');
       }
-    }, { rootMargin: '-30% 0px -50% 0px', threshold: [0.25, 0.5, 0.75] });
-    sections.forEach((sec) => secIO.observe(sec));
-    
-      // ===== 7) Correct offset when page loads with hash =====
-  if (location.hash && location.hash !== '#') {
-    // beri sedikit delay supaya layout/height sudah final
-    setTimeout(() => {
-      const id = decodeURIComponent(location.hash);
-      const el = document.querySelector(id);
-      if (!el) return;
-      const navH = navbar?.offsetHeight || 90;
-      const y = Math.max(window.scrollY + el.getBoundingClientRect().top - (navH + 12), 0);
-      window.scrollTo({ top: y, behavior: 'instant' });
-      // paksa state 'scrolled' supaya warna navbar sesuai ketika mendarat di tengah halaman
-      navbar.classList.toggle('scrolled', true);
-    }, 0);
+    });
   }
+
+  // 4) Active link highlight (by pathname)
+  const here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(a => {
+    const file = a.getAttribute('href')?.split('/').pop();
+    if (file === here) a.classList.add('active');
+  });
+
+  // 5) Correct offset when landing with #hash
+  const fixOffsetForHash = () => {
+    if (!location.hash) return;
+    const el = document.querySelector(decodeURIComponent(location.hash));
+    if (!el) return;
+    const navH = (navbar?.offsetHeight || 80) + 12;
+    const y = Math.max(window.scrollY + el.getBoundingClientRect().top - navH, 0);
+    window.scrollTo({ top: y, behavior: 'instant' });
+  };
+  setTimeout(fixOffsetForHash, 0);
+
+  // Fix offset for in-page links clicked from navbar
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const to = document.querySelector(a.getAttribute('href'));
+      if (!to) return;
+      e.preventDefault();
+      const navH = (navbar?.offsetHeight || 80) + 12;
+      const y = Math.max(window.scrollY + to.getBoundingClientRect().top - navH, 0);
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+
+  // 6) Mini parallax hero (aman)
+  const hero = document.querySelector('.hero--home');
+  if (hero) {
+    const parallax = () => {
+      const y = Math.min(40, window.scrollY * 0.08);
+      hero.style.backgroundPosition = `center calc(0px + ${y}px)`;
+    };
+    parallax();
+    window.addEventListener('scroll', parallax, { passive: true });
   }
 });
