@@ -251,3 +251,43 @@ document.addEventListener('DOMContentLoaded', () => {
   handleAutoHideHeader();
   handleFAQ();
 });
+
+  // Navbar scroll solid + auto-hide
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    navbar.classList.toggle("scrolled", y > 20);
+    if (y > 100 && y > lastY) navbar.classList.add("hide");
+    else navbar.classList.remove("hide");
+    lastY = y;
+  });
+
+  // Burger toggle
+  burger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("show");
+  });
+
+  // Mobile dropdown
+  mobileDropdownBtn.addEventListener("click", () => {
+    mobileDropdown.classList.toggle("hidden");
+  });
+
+  // Fade-in animation
+  const fades = document.querySelectorAll(".fade-in");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    },
+    { threshold: 0.2 }
+  );
+  fades.forEach((f) => observer.observe(f));
+});
+  // Auto-hide navbar & scroll features
+document.addEventListener("DOMContentLoaded", () => {
+  const navbar = document.getElementById("navbar");
+  const burger = document.getElementById("burger");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const mobileDropdownBtn = document.getElementById("mobileDropdownBtn");
+  const mobileDropdown = document.getElementById("mobileDropdown");
+  let lastY = window.scrollY;
