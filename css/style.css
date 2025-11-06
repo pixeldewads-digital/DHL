@@ -63,3 +63,46 @@
 /* Fade-in animation */
 .fade-in{opacity:0;transform:translateY(20px);transition:all .6s ease}
 .fade-in.visible{opacity:1;transform:none}
+/* === Logo dual version (hero white + solid color) === */
+.navbar-logo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navbar-logo .logo {
+  height: 64px;
+  width: auto;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+
+.logo--hero {
+  opacity: 1;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.logo--solid {
+  opacity: 0;
+}
+
+/* Saat navbar solid (di-scroll) => logo hijau tampil */
+.navbar.scrolled .logo--hero,
+.navbar.hide .logo--hero {
+  opacity: 0;
+}
+
+.navbar.scrolled .logo--solid,
+.navbar.hide .logo--solid {
+  opacity: 1;
+}
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+  .navbar-logo .logo {
+    height: 52px;
+  }
+}
