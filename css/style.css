@@ -163,3 +163,92 @@ p{line-height:1.7;color:#2b2b2b}
   .burger{display:block}
   .navbar-logo .logo{height:56px}
 }
+/* ==== WHY EXTENDED ==== */
+.section--alt{
+  position: relative;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(0,168,120,.08), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(255,215,0,.08), transparent 60%);
+}
+
+/* icons */
+.why-values .why-ico{
+  font-size: 28px; line-height: 1; margin-bottom: 8px;
+}
+
+/* KPIs */
+.kpis{
+  display:grid; grid-template-columns: repeat(4,1fr);
+  gap:16px; margin:28px 0 8px 0;
+  padding:18px; border-radius:16px;
+  background: rgba(255,255,255,.6);
+  backdrop-filter: blur(6px);
+  border:1px solid rgba(0,0,0,.06);
+}
+.kpi{ text-align:center }
+.kpi h3{ font-family:"Playfair Display",serif; font-size:clamp(28px,4vw,40px); color:var(--emerald) }
+.kpi p{ color:#556; margin:0 }
+
+/* Process */
+.why-process{ margin-top:32px }
+.why-subtitle{ text-align:center; margin:8px 0 18px; color:#223 }
+.why-steps{
+  display:grid; grid-template-columns: repeat(4,1fr); gap:16px;
+}
+.step{
+  background:#fff; border:1px solid rgba(0,0,0,.06);
+  border-radius:14px; padding:16px;
+  box-shadow:0 10px 22px rgba(0,0,0,.06);
+  transition: transform .25s, box-shadow .25s;
+}
+.step:hover{ transform: translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.10) }
+.step-num{
+  display:inline-block; font-weight:800; color:var(--emerald); margin-bottom:6px;
+}
+
+/* Testimonials */
+.why-testimonials{ margin-top:36px }
+.t-scroll{
+  display:grid; grid-auto-flow: column; grid-auto-columns: minmax(260px,1fr);
+  gap:16px; overflow-x:auto; padding-bottom:8px;
+  scroll-snap-type: x mandatory;
+}
+.t-card{
+  scroll-snap-align:start;
+  background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px;
+  padding:18px; box-shadow:0 10px 22px rgba(0,0,0,.06);
+}
+.t-card blockquote{ color:#223; font-style: italic; margin:0 0 8px 0 }
+.t-card figcaption{ color:#667 }
+
+/* FAQ */
+.why-faq{ margin-top:36px }
+.faq{
+  background:#fff; border:1px solid rgba(0,0,0,.08);
+  border-radius:14px; padding:12px 14px; margin:10px 0;
+}
+.faq summary{
+  list-style:none; cursor:pointer; font-weight:700; color:#223; display:flex; align-items:center; gap:8px;
+}
+.faq summary::-webkit-details-marker{ display:none }
+.faq[open]{ border-color: rgba(0,168,120,.35) }
+.faq-a{ margin-top:8px; color:#3a3a3a }
+
+/* CTA banner */
+.why-cta{
+  margin-top:38px; text-align:center;
+  padding:22px; border-radius:18px; color:#fff;
+  background: linear-gradient(120deg, var(--emerald), #159D83 55%, #0E7A63);
+  box-shadow: 0 14px 30px rgba(0,0,0,.12);
+}
+.why-cta p{ color:#ECFFFA; margin-bottom:10px }
+
+/* Responsive */
+@media (max-width:1024px){
+  .kpis{ grid-template-columns: repeat(2,1fr) }
+  .why-steps{ grid-template-columns: repeat(2,1fr) }
+}
+@media (max-width:720px){
+  .kpis{ grid-template-columns: 1fr }
+  .why-steps{ grid-template-columns: 1fr }
+}
