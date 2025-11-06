@@ -102,10 +102,12 @@
 .logo--hero {
   opacity: 1;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+  transition: opacity 0.4s ease;
 }
 
 .logo--solid {
   opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 /* Saat navbar solid (di-scroll) => logo hijau tampil */
