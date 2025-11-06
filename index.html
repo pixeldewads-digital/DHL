@@ -3,242 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dewata Home Living - Konstruksi & Investasi Properti Bali</title>
-  <meta name="description" content="Bangun aset kost & villa eksklusif di Bali bersama Dewata Home Living. Desain 3D, RAB transparan, dan pengawasan profesional.">
+  <title>Dewata Home Living — Konstruksi & Investasi Properti Bali</title>
+  <meta name="description" content="Bangun aset kost & villa eksklusif di Bali dengan Dewata Home Living. Desain 3D, RAB transparan, dan pengawasan profesional.">
 
-  <link rel="icon" href="assets/favicon.png">
-  <link rel="preload" href="assets/hero-villa.webp" as="image">
-  <link rel="stylesheet" href="css/style.css?v=19">
-
-  <!-- JSON-LD: Organization (SEO) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"Dewata Home Living",
-    "url":"https://pixeldewads-digital.github.io/DHL/",
-    "logo":"https://pixeldewads-digital.github.io/DHL/assets/logo-dhl.png"
-  }
-  </script>
+  <link rel="icon" href="assets/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=23" />
 </head>
-<body>
 
-  <!-- Skip link -->
-  <a href="#main" class="skip-link">Lewati ke konten utama</a>
+<body class="scroll-smooth bg-gradient-to-br from-[#f6f8f7] via-[#e9eeeb] to-[#dde5e2] text-[#1f2824]">
 
-  <!-- NAVBAR -->
-  <header class="navbar">
+  <!-- ===================== NAVBAR ===================== -->
+  <header id="navbar" class="navbar">
     <div class="navbar-container">
-      <a href="index.html" class="logo logo--animate" aria-label="Dewata Home Living">
-        <img class="logo--hero"  src="assets/logo-dhl-white.png"   alt="Dewata Home Living">
-        <img class="logo--solid" src="assets/logo-dhl.png"         alt="" aria-hidden="true">
+      <a href="#home" class="navbar-logo">
+        <div class="logo-circle">
+          <span>D</span>
+        </div>
+        <div class="logo-text">
+          <div class="brand-name">DHL</div>
+          <div class="brand-sub">Dewata Home Living</div>
+        </div>
       </a>
 
       <nav class="nav-links" aria-label="Navigasi utama">
-        <a href="index.html" class="active">Home</a>
-        <a href="#packages">Packages</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="#home" class="active">Home</a>
+        <a href="#about">Tentang</a>
+
+        <div class="dropdown">
+          <button class="dropdown-btn">Services <span class="chevron">▼</span></button>
+          <div class="dropdown-content">
+            <a href="#investment">Investment Package</a>
+            <a href="#construction">Building & Construction</a>
+            <a href="#lease">Lease Hold & Free Hold</a>
+            <a href="#maintenance">Maintenance</a>
+          </div>
+        </div>
+
+        <a href="#contact">Kontak</a>
+        <a href="#consult" class="btn btn-primary">Konsultasi</a>
       </nav>
 
-      <button class="hamburger" aria-label="Buka menu" aria-expanded="false">
+      <button id="burger" class="burger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="#home">Home</a>
+      <a href="#about">Tentang</a>
+      <button id="mobileDropdownBtn" class="mobile-dropdown-btn">Services <span>▼</span></button>
+      <div id="mobileDropdown" class="mobile-dropdown hidden">
+        <a href="#investment">Investment Package</a>
+        <a href="#construction">Building & Construction</a>
+        <a href="#lease">Lease Hold & Free Hold</a>
+        <a href="#maintenance">Maintenance</a>
+      </div>
+      <a href="#contact">Kontak</a>
+      <a href="#consult" class="btn btn-primary block text-center mt-4">Konsultasi Gratis</a>
+    </div>
   </header>
 
-  <main id="main">
-    <!-- HERO -->
-    <section class="hero hero--home">
-      <div class="container">
-        <h1>A Place to Belong. A Style to Remember</h1>
-        <p>Hunian yang membuatmu merasa di rumah, dengan gaya yang meninggalkan kesan.</p>
-        <div class="hero-buttons">
-          <a href="https://wa.me/628282569675" class="btn btn-primary">Konsultasi WhatsApp</a>
-          <a href="#packages" class="btn btn-outline">Lihat Paket Investasi</a>
-        </div>
-      </div>
-    </section>
-
-  <!-- WHY (extended, single-page) -->
-<section id="why" class="section why">
-  <div class="container">
-    <h2 class="text-center fade-in">Mengapa Dewata Home Living?</h2>
-
-    <!-- A. Value Cards -->
-    <div class="why-grid">
-      <article class="why-card fade-in">
-        <img src="assets/icon-transparency.svg" alt="" class="why-ico">
-        <h3>Transparansi Real-Time</h3>
-        <p>RAB detail dari awal + update progres mingguan melalui dashboard klien.</p>
-      </article>
-      <article class="why-card fade-in">
-        <img src="assets/icon-design.svg" alt="" class="why-ico">
-        <h3>Desain Tropis Futuristik</h3>
-        <p>Rancang bangun efisien, estetis, dan adaptif iklim—material terkurasi.</p>
-      </article>
-      <article class="why-card fade-in">
-        <img src="assets/icon-roi.svg" alt="" class="why-ico">
-        <h3>Fokus ROI Investor</h3>
-        <p>Analisis sewa, proyeksi okupansi, & optimasi layout untuk hasil maksimal.</p>
-      </article>
-    </div>
-
-    <!-- B. Metrics strip -->
-    <div class="why-metrics fade-in">
-      <div class="metric"><span>40+</span><small>Proyek diselesaikan</small></div>
-      <div class="metric"><span>12–16%</span><small>ROI estimasi / tahun*</small></div>
-      <div class="metric"><span>6–10 bln</span><small>Rata-rata durasi</small></div>
-      <div class="metric"><span>100%</span><small>RAB transparan</small></div>
-    </div>
-
-    <!-- C. Proses (timeline) -->
-    <div class="why-process fade-in">
-      <h3 class="why-sub">Proses Kerja</h3>
-      <ol class="process">
-        <li>
-          <strong>Pra-Proyek</strong>
-          <p>Survei lahan, studi kelayakan, & estimasi awal RAB.</p>
-        </li>
-        <li>
-          <strong>Desain & Perizinan</strong>
-          <p>Konsep, gambar kerja, 3D visual; bantuan perizinan terkait.</p>
-        </li>
-        <li>
-          <strong>Konstruksi</strong>
-          <p>Eksekusi terjadwal; QC tiap fase; dokumentasi progres.</p>
-        </li>
-        <li>
-          <strong>Serah Terima</strong>
-          <p>Final check; panduan perawatan; opsional manajemen sewa.</p>
-        </li>
-      </ol>
-    </div>
-
-    <!-- D. Testimoni mini (slider ringan) -->
-    <div class="why-testimonial fade-in">
-      <div class="tsl">
-        <div class="tsl-track">
-          <figure class="tsl-item">
-            <blockquote>“RAB jelas dari awal & progres mingguan bikin tenang walau saya di luar Bali.”</blockquote>
-            <figcaption>— Andi, Investor Kost Denpasar</figcaption>
-          </figure>
-          <figure class="tsl-item">
-            <blockquote>“Desainnya rapi, servis responsif. Serah terima tepat waktu.”</blockquote>
-            <figcaption>— Maya, Villa Canggu</figcaption>
-          </figure>
-          <figure class="tsl-item">
-            <blockquote>“Dibantu analisis ROI & layout. Okupansi lebih tinggi dari target.”</blockquote>
-            <figcaption>— Rizal, Kost Jimbaran</figcaption>
-          </figure>
-        </div>
+  <!-- ===================== HERO ===================== -->
+  <section id="home" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-container">
+      <h1>Bangun Aset Kost &amp; Villa Eksklusif di Bali</h1>
+      <p>Desain 3D • RAB Transparan • Pengawasan Profesional</p>
+      <div class="hero-buttons">
+        <a href="https://wa.me/628282569675" class="btn btn-primary">Konsultasi WhatsApp</a>
+        <a href="#investment" class="btn btn-outline">Lihat Paket Investasi</a>
       </div>
     </div>
+  </section>
 
-    <!-- E. FAQ accordion -->
-    <div class="why-faq fade-in">
-      <h3 class="why-sub">Pertanyaan Umum</h3>
-      <div class="faq">
-        <button class="faq-q" aria-expanded="false">Berapa estimasi ROI proyek kost/villa?</button>
-        <div class="faq-a"><p>Tergantung lokasi, tipe, & strategi sewa. Klien kami umumnya 12–16%/tahun dengan manajemen yang tepat.</p></div>
-
-        <button class="faq-q" aria-expanded="false">Apakah RAB bisa berubah?</button>
-        <div class="faq-a"><p>Kami jaga agar sesuai rencana. Perubahan hanya jika ada scope tambahan/force majeure—selalu dikonfirmasi tertulis.</p></div>
-
-        <button class="faq-q" aria-expanded="false">Apakah bisa bantu cari lahan?</button>
-        <div class="faq-a"><p>Bisa. Kami bantu kurasi lahan, komparasi lease/freehold, dan studi kelayakan singkat.</p></div>
-      </div>
-    </div>
-
-    <!-- F. CTA akhir -->
-    <div class="why-cta fade-in">
-      <h3>Siap mulai? Dapatkan simulasi RAB gratis.</h3>
-      <a href="https://wa.me/628282569675" class="btn btn-primary">Konsultasi WhatsApp</a>
-      <a href="investment.html" class="btn btn-outline">Lihat Paket Investasi</a>
-    </div>
-  </div>
-</section>
-
-
-    <!-- PACKAGES -->
-    <section id="packages" class="section">
-      <div class="container">
-        <h2 class="text-center fade-in">Paket Populer</h2>
-        <div class="grid-3">
-          <div class="card fade-in">
-            <h3>Kost 8 Kamar</h3>
-            <p class="price">Mulai dari Rp 400 Jt</p>
-            <p>Durasi: 4–5 Bulan</p>
-            <a href="investment.html" class="btn btn-primary">Lihat Detail</a>
-          </div>
-          <div class="card fade-in">
-            <h3>Kost 14 Kamar</h3>
-            <p class="price">Mulai dari Rp 700 Jt</p>
-            <p>Durasi: 6–7 Bulan</p>
-            <a href="investment.html" class="btn btn-primary">Lihat Detail</a>
-          </div>
-          <div class="card fade-in">
-            <h3>Villa Eksklusif</h3>
-            <p class="price">Mulai dari Rp 1,2 M</p>
-            <p>Durasi: 8–10 Bulan</p>
-            <a href="investment.html" class="btn btn-primary">Lihat Detail</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section id="portfolio" class="section">
-      <div class="container">
-        <h2 class="text-center fade-in">Portfolio Terbaru</h2>
-        <div class="grid-3">
-          <div class="portfolio-item fade-in">
-            <img src="assets/portfolio1.webp" alt="Villa di Canggu" loading="lazy">
-            <div class="portfolio-item__caption">Villa Canggu</div>
-          </div>
-          <div class="portfolio-item fade-in">
-            <img src="assets/portfolio2.webp" alt="Kost di Denpasar" loading="lazy">
-            <div class="portfolio-item__caption">Kost Denpasar</div>
-          </div>
-          <div class="portfolio-item fade-in">
-            <img src="assets/portfolio3.webp" alt="Rumah Tinggal di Ubud" loading="lazy">
-            <div class="portfolio-item__caption">Rumah Tinggal Ubud</div>
-          </div>
-        </div>
-
-        <div class="text-center" style="margin-top:32px;">
-          <a href="portfolio.html" class="btn btn-outline">Lihat Semua Portfolio</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
+  <!-- ===================== WHY ===================== -->
+  <section id="about" class="section">
     <div class="container">
-      <p>&copy; 2025 Dewata Home Living. All rights reserved.</p>
+      <h2 class="text-center fade-in">Mengapa Dewata Home Living?</h2>
+      <div class="why-grid">
+        <div class="card fade-in">
+          <h3>Transparansi Real-Time</h3>
+          <p>RAB detail sejak awal dan laporan progres mingguan.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Desain Tropis Modern</h3>
+          <p>Konsep fungsional, estetis, &amp; sesuai iklim Bali.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Fokus ROI Investor</h3>
+          <p>Analisis properti &amp; strategi investasi optimal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PACKAGES ===================== -->
+  <section id="investment" class="section section-dark">
+    <div class="container">
+      <h2 class="text-center fade-in">Paket Investasi</h2>
+      <div class="grid-3">
+        <div class="card fade-in">
+          <h3>Kost 8 Kamar</h3>
+          <p class="price">Rp 400 Jt</p>
+          <p>Durasi: 4–5 bulan</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Kost 14 Kamar</h3>
+          <p class="price">Rp 700 Jt</p>
+          <p>Durasi: 6–7 bulan</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Villa Eksklusif</h3>
+          <p class="price">Rp 1.2 M</p>
+          <p>Durasi: 8–10 bulan</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT CTA ===================== -->
+  <section id="consult" class="section section-cta">
+    <div class="container text-center">
+      <h2>Siap Bangun Investasi Anda di Bali?</h2>
+      <p>Konsultasi gratis untuk simulasi biaya, desain, dan timeline proyek Anda.</p>
+      <a href="https://wa.me/628282569675" class="btn btn-primary">Mulai Konsultasi</a>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Dewata Home Living</h4>
+          <p>Partner profesional Anda dalam membangun aset kost & villa bernilai tinggi di Bali.</p>
+        </div>
+        <div>
+          <h4>Kontak</h4>
+          <p>Email: <a href="mailto:hello@dewatahomeliving.com">hello@dewatahomeliving.com</a></p>
+          <p>WhatsApp: <a href="https://wa.me/628282569675">+62 828 2569 675</a></p>
+        </div>
+        <div>
+          <h4>Alamat</h4>
+          <p>Jl. Raya Canggu No.8, Bali</p>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2025 Dewata Home Living. All rights reserved.
+      </div>
     </div>
   </footer>
-
-  <!-- Sticky CTA (mobile) -->
-  <div class="sticky-cta" role="region" aria-label="Aksi cepat">
-    <a href="https://wa.me/628282569675" class="btn btn-primary">
-      <!-- WhatsApp icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true" width="18" height="18" fill="#fff">
-        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157z"/>
-      </svg>
-      Konsultasi WhatsApp
-    </a>
-  </div>
-
-
-  <!-- Floating WA (desktop) — tetap ada seperti biasa -->
-  <a href="https://wa.me/628282569675" class="whatsapp-float" aria-label="Hubungi kami di WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#fff" width="28" height="28" aria-hidden="true">
-      <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157z"/>
-    </svg>
-  </a>
 
   <script src="js/main.js"></script>
 </body>
