@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/reset-monthly-limits",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
