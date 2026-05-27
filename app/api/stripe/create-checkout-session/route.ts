@@ -35,6 +35,8 @@ export async function POST(req: NextRequest) {
   }
 
   const isLifetime = plan === 'lifetime'
+  const monthlyPriceCents = parseInt(process.env.STRIPE_MONTHLY_PRICE_CENTS || '1000')
+  const lifetimePriceCents = parseInt(process.env.STRIPE_LIFETIME_PRICE_CENTS || '7900')
 
   const checkoutSession = await stripe.checkout.sessions.create({
     customer: customerId,
@@ -51,8 +53,8 @@ export async function POST(req: NextRequest) {
               : 'Monthly subscription with full access',
           },
           ...(isLifetime
-            ? { unit_amount: 7900 }
-            : { unit_amount: 1000, recurring: { interval: 'month' } }),
+            ? { unit_amount: lifetimePriceCents }
+            : { unit_amount: monthlyPriceCents, recurring: { interval: 'month' } }),
         },
         quantity: 1,
       },
