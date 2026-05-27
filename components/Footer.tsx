@@ -34,8 +34,13 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-800 pt-8 text-center text-sm">
-          <p>© 2025 Product AI Prompts. All rights reserved.</p>
+        <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+          <p>© {new Date().getFullYear()} Product AI Prompts. All rights reserved.</p>
+          <div className="flex items-center space-x-4">
+            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+          </div>
         </div>
       </div>
     </footer>

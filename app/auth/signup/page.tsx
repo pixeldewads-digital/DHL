@@ -151,6 +151,12 @@ export default function SignupPage() {
             Login
           </Link>
         </p>
+        <p className="text-center text-gray-400 text-xs mt-4 leading-relaxed">
+          Dengan mendaftar, Anda menyetujui{' '}
+          <Link href="/terms" className="underline hover:text-gray-600">Terms of Service</Link>
+          {' '}dan{' '}
+          <Link href="/privacy" className="underline hover:text-gray-600">Privacy Policy</Link>{' '}kami.
+        </p>
       </div>
     </div>
   )
