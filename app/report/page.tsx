@@ -6,6 +6,8 @@ import {
   Loader2, AlertTriangle, TrendingUp, Target, Calendar, ArrowRight,
   RotateCcw, Download, Star, Lock, Users, DollarSign, Map,
 } from 'lucide-react'
+
+
 import Link from 'next/link'
 import { Report, CompetitiveAnalysis, PricingStrategy, GoToMarketBrief, ActionPlan, MarketSizeEstimate } from '@/types'
 
@@ -129,6 +131,28 @@ export default function ReportPage() {
       setError('Network error')
     } finally {
       setGenerating(false)
+    }
+  }
+
+  const [downloading, setDownloading] = useState(false)
+
+  async function handleDownloadPdf() {
+    if (!report) return
+    setDownloading(true)
+    try {
+      const res = await fetch('/api/report/pdf')
+      if (!res.ok) throw new Error('PDF generation failed')
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `product-validation-report.pdf`
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch {
+      setError('Failed to generate PDF. Please try again.')
+    } finally {
+      setDownloading(false)
     }
   }
 
@@ -456,11 +480,15 @@ export default function ReportPage() {
         {/* Actions */}
         <div className="flex flex-wrap gap-3 print:hidden">
           <button
-            onClick={() => window.print()}
-            className="flex items-center space-x-2 bg-gray-900 text-white px-5 py-2.5 rounded-xl font-medium hover:bg-gray-800 transition-colors"
+            onClick={handleDownloadPdf}
+            disabled={downloading}
+            className="flex items-center space-x-2 bg-gray-900 text-white px-5 py-2.5 rounded-xl font-medium hover:bg-gray-800 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
           >
-            <Download className="w-4 h-4" />
-            <span>Download PDF</span>
+            {downloading ? (
+              <><Loader2 className="w-4 h-4 animate-spin" /><span>Generating PDF...</span></>
+            ) : (
+              <><Download className="w-4 h-4" /><span>Download PDF</span></>
+            )}
           </button>
           <button
             onClick={handleRetake}
