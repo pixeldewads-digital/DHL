@@ -2,11 +2,72 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { ChevronLeft, ChevronRight, Loader2, Lock, CheckCircle, Send } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Loader2, Lock, CheckCircle, Send, Zap, ArrowRight } from 'lucide-react'
 import { STAGES } from '@/lib/questions'
+import { GenerationStatus } from '@/types'
 
 interface Answers {
   [key: string]: string
+}
+
+function GenerationCounter({ status, plan }: { status: GenerationStatus | null; plan: string }) {
+  if (!status) return null
+  const isLifetime = plan === 'lifetime'
+
+  if (isLifetime) {
+    return (
+      <div className="flex items-center space-x-3 bg-gradient-to-r from-violet-50 to-blue-50 border border-violet-100 rounded-xl p-3">
+        <Zap className="w-4 h-4 text-violet-600 flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold text-violet-700">Unlimited validations</p>
+          <p className="text-xs text-violet-500">{status.used} total generated · Keep validating forever!</p>
+        </div>
+      </div>
+    )
+  }
+
+  const pct = Math.min(100, ((status.used) / (status.limit ?? 5)) * 100)
+  const remaining = (status.limit ?? 5) - status.used
+
+  return (
+    <div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
+      <div className="flex items-center justify-between mb-1.5">
+        <p className="text-sm font-semibold text-gray-700">
+          {status.used} of {status.limit} validations used this month
+        </p>
+        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${remaining === 0 ? 'bg-red-100 text-red-600' : remaining <= 2 ? 'bg-orange-100 text-orange-600' : 'bg-green-100 text-green-600'}`}>
+          {remaining} left
+        </span>
+      </div>
+      <div className="w-full bg-gray-200 rounded-full h-1.5">
+        <div
+          className={`h-1.5 rounded-full transition-all ${pct >= 100 ? 'bg-red-500' : pct >= 60 ? 'bg-orange-500' : 'bg-green-500'}`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      {status.daysUntilReset !== null && (
+        <p className="text-xs text-gray-400 mt-1">Resets in {status.daysUntilReset} days</p>
+      )}
+    </div>
+  )
+}
+
+function LimitReachedBanner() {
+  return (
+    <div className="bg-orange-50 border border-orange-200 rounded-xl p-5 text-center">
+      <p className="font-bold text-orange-800 mb-1">Monthly limit reached</p>
+      <p className="text-orange-700 text-sm mb-4">
+        You&apos;ve used all 5 validations this month. Upgrade to Lifetime for unlimited validations — pay once, access forever.
+      </p>
+      <a
+        href="/pricing"
+        className="inline-flex items-center space-x-1.5 bg-gradient-to-r from-violet-600 to-blue-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity"
+      >
+        <span>Upgrade to Lifetime · $79</span>
+        <ArrowRight className="w-4 h-4" />
+      </a>
+    </div>
+  )
 }
 
 export default function QuestionnairePage() {
@@ -17,10 +78,10 @@ export default function QuestionnairePage() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [userPlan, setUserPlan] = useState('free')
+  const [genStatus, setGenStatus] = useState<GenerationStatus | null>(null)
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    // Load from localStorage first
     const saved = localStorage.getItem('questionnaire_answers')
     if (saved) {
       try { setAnswers(JSON.parse(saved)) } catch {}
@@ -28,12 +89,15 @@ export default function QuestionnairePage() {
     const savedStage = localStorage.getItem('questionnaire_stage')
     if (savedStage) setCurrentStage(parseInt(savedStage))
 
-    // Fetch user plan and saved answers from server
     Promise.all([
       fetch('/api/user/profile').then(r => r.json()),
       fetch('/api/questionnaire').then(r => r.json()),
-    ]).then(([userData, qData]) => {
-      if (userData.user) setUserPlan(userData.user.plan === 'monthly' || userData.user.plan === 'lifetime' || userData.user.payment_status === 'paid' ? 'paid' : 'free')
+      fetch('/api/user/generation-status').then(r => r.json()),
+    ]).then(([userData, qData, genData]) => {
+      if (userData.user) {
+        const plan = userData.user.plan
+        setUserPlan(plan === 'monthly' || plan === 'lifetime' ? plan : 'free')
+      }
       if (qData.questionnaire) {
         const q = qData.questionnaire
         const serverAnswers: Answers = {}
@@ -44,10 +108,12 @@ export default function QuestionnairePage() {
         })
         setAnswers(prev => ({ ...serverAnswers, ...prev }))
       }
+      if (!genData.error) setGenStatus(genData)
     }).catch(console.error).finally(() => setLoaded(true))
   }, [])
 
-  const isPaid = userPlan === 'paid'
+  const isPaid = userPlan === 'monthly' || userPlan === 'lifetime'
+  const canGenerate = userPlan === 'lifetime' || (genStatus?.canGenerate ?? true)
 
   const isStageComplete = useCallback((stageId: number) => {
     const stage = STAGES[stageId - 1]
@@ -57,7 +123,6 @@ export default function QuestionnairePage() {
   const isStageAccessible = useCallback((stageId: number) => {
     if (stageId === 1) return true
     if (!isPaid) return false
-    // All previous stages must be complete
     for (let i = 1; i < stageId; i++) {
       if (!isStageComplete(i)) return false
     }
@@ -79,7 +144,6 @@ export default function QuestionnairePage() {
     }
   }, [])
 
-  // Auto-save every 30 seconds
   useEffect(() => {
     if (!loaded) return
     const timer = setInterval(() => {
@@ -121,6 +185,7 @@ export default function QuestionnairePage() {
       setError('Lengkapi semua pertanyaan di stage ini dulu.')
       return
     }
+    if (!canGenerate) return
     setSubmitting(true)
     setError('')
 
@@ -130,7 +195,11 @@ export default function QuestionnairePage() {
       const data = await res.json()
 
       if (!res.ok) {
-        setError(data.error || 'Failed to generate report')
+        if (data.error === 'monthly_limit_reached') {
+          setGenStatus(prev => prev ? { ...prev, canGenerate: false, used: data.used } : prev)
+        } else {
+          setError(data.error || 'Failed to generate report')
+        }
         return
       }
 
@@ -159,7 +228,7 @@ export default function QuestionnairePage() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold text-gray-900">Product Validation</h1>
             {saving && (
@@ -169,6 +238,9 @@ export default function QuestionnairePage() {
               </div>
             )}
           </div>
+
+          {/* Generation counter */}
+          {isPaid && <div className="mb-4"><GenerationCounter status={genStatus} plan={userPlan} /></div>}
 
           {/* Stage indicators */}
           <div className="flex items-center space-x-2 mb-4">
@@ -227,10 +299,7 @@ export default function QuestionnairePage() {
               <Lock className="w-12 h-12 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-bold text-gray-700 mb-2">Stage Terkunci</h3>
               <p className="text-gray-500 mb-6">Upgrade ke plan berbayar untuk mengakses semua 6 stages dan mendapatkan AI report Anda.</p>
-              <a
-                href="/pricing"
-                className="inline-block bg-gradient-to-r from-violet-600 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
-              >
+              <a href="/pricing" className="inline-block bg-gradient-to-r from-violet-600 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                 Upgrade Sekarang →
               </a>
             </div>
@@ -271,17 +340,19 @@ export default function QuestionnairePage() {
             </button>
 
             {isLast && isPaid ? (
-              <button
-                onClick={handleSubmit}
-                disabled={submitting || !isStageComplete(6)}
-                className="flex items-center space-x-2 bg-gradient-to-r from-violet-600 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-              >
-                {submitting ? (
-                  <><Loader2 className="w-4 h-4 animate-spin" /><span>Generating Report...</span></>
-                ) : (
-                  <><Send className="w-4 h-4" /><span>Submit & Generate Report</span></>
-                )}
-              </button>
+              canGenerate ? (
+                <button
+                  onClick={handleSubmit}
+                  disabled={submitting || !isStageComplete(6)}
+                  className="flex items-center space-x-2 bg-gradient-to-r from-violet-600 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                >
+                  {submitting ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /><span>Generating Report...</span></>
+                  ) : (
+                    <><Send className="w-4 h-4" /><span>Submit & Generate Report</span></>
+                  )}
+                </button>
+              ) : null
             ) : !isLast ? (
               <button
                 onClick={handleNext}
@@ -294,6 +365,14 @@ export default function QuestionnairePage() {
             ) : null}
           </div>
 
+          {/* Limit reached on submit */}
+          {isLast && isPaid && !canGenerate && (
+            <div className="mt-4">
+              <LimitReachedBanner />
+            </div>
+          )}
+
+          {/* Free user upgrade prompt after stage 1 */}
           {!isPaid && currentStage === 1 && isStageComplete(1) && (
             <div className="mt-4 p-4 bg-violet-50 rounded-xl border border-violet-100 text-center">
               <p className="text-violet-700 font-medium mb-2">Stage 1 selesai! 🎉</p>
