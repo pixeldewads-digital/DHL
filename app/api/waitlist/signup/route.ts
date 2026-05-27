@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { addToWaitlist } from '@/lib/db/waitlist'
+import { checkRateLimit } from '@/lib/rate-limit'
 import { Resend } from 'resend'
 import { WaitlistSignupRequest } from '@/lib/types/waitlist'
 
@@ -66,6 +67,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Format email tidak valid' }, { status: 400 })
     }
 
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown'
+    const rl = await checkRateLimit(`waitlist:signup:${ip}`, 3)
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'Terlalu banyak permintaan. Coba lagi nanti.' }, { status: 429 })
+    }
+
     const signupData: WaitlistSignupRequest = {
       email,
       first_name: String(first_name).trim(),
@@ -76,8 +83,7 @@ export async function POST(req: NextRequest) {
       referral_source: body.referral_source || undefined,
     }
 
-    const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || undefined
-    const result = await addToWaitlist({ ...signupData, signup_ip: ip })
+    const result = await addToWaitlist({ ...signupData, signup_ip: ip === 'unknown' ? undefined : ip })
 
     if (!result.success) {
       return NextResponse.json({ error: result.error || 'Gagal mendaftar' }, { status: 500 })

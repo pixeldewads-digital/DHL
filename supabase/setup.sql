@@ -136,6 +136,32 @@ CREATE OR REPLACE TRIGGER update_waitlist_updated_at
   BEFORE UPDATE ON waitlist_signups
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+-- ── RATE LIMITS ──────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS rate_limits (
+  id         UUID      PRIMARY KEY DEFAULT gen_random_uuid(),
+  key        TEXT      NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_rate_limits_key        ON rate_limits(key);
+CREATE INDEX IF NOT EXISTS idx_rate_limits_created_at ON rate_limits(created_at);
+
+-- ── SHARE TOKEN (reports) ─────────────────────────────────────
+-- Safe to run on existing DB — adds column only if it doesn't exist.
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'reports' AND column_name = 'share_token'
+  ) THEN
+    ALTER TABLE reports ADD COLUMN share_token TEXT UNIQUE;
+  END IF;
+END $$;
+
+CREATE INDEX IF NOT EXISTS idx_reports_share_token ON reports(share_token);
+
 -- ── VERIFY ───────────────────────────────────────────────────
 -- Run this after setup to confirm all tables exist:
 --
@@ -147,6 +173,7 @@ CREATE OR REPLACE TRIGGER update_waitlist_updated_at
 -- Expected output:
 --   auth_tokens
 --   questionnaires
+--   rate_limits
 --   reports
 --   users
 --   waitlist_signups

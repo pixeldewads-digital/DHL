@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   Loader2, AlertTriangle, TrendingUp, Target, Calendar, ArrowRight,
-  RotateCcw, Download, Star, Lock, Users, DollarSign, Map,
+  RotateCcw, Download, Star, Lock, Users, DollarSign, Map, Mail, Share2, Check,
 } from 'lucide-react'
 
 
@@ -135,6 +135,49 @@ export default function ReportPage() {
   }
 
   const [downloading, setDownloading] = useState(false)
+  const [emailing, setEmailing] = useState(false)
+  const [emailSent, setEmailSent] = useState(false)
+  const [sharing, setSharing] = useState(false)
+  const [shareUrl, setShareUrl] = useState('')
+  const [shareCopied, setShareCopied] = useState(false)
+
+  async function handleEmailReport() {
+    setEmailing(true)
+    setError('')
+    try {
+      const res = await fetch('/api/report/email', { method: 'POST' })
+      if (!res.ok) throw new Error('Failed to send')
+      setEmailSent(true)
+      setTimeout(() => setEmailSent(false), 4000)
+    } catch {
+      setError('Failed to send email. Please try again.')
+    } finally {
+      setEmailing(false)
+    }
+  }
+
+  async function handleShare() {
+    if (shareUrl) {
+      await navigator.clipboard.writeText(shareUrl)
+      setShareCopied(true)
+      setTimeout(() => setShareCopied(false), 2000)
+      return
+    }
+    setSharing(true)
+    try {
+      const res = await fetch('/api/report/share', { method: 'POST' })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error)
+      setShareUrl(data.shareUrl)
+      await navigator.clipboard.writeText(data.shareUrl)
+      setShareCopied(true)
+      setTimeout(() => setShareCopied(false), 2000)
+    } catch {
+      setError('Failed to create share link.')
+    } finally {
+      setSharing(false)
+    }
+  }
 
   async function handleDownloadPdf() {
     if (!report) return
@@ -491,6 +534,32 @@ export default function ReportPage() {
             )}
           </button>
           <button
+            onClick={handleEmailReport}
+            disabled={emailing || emailSent}
+            className="flex items-center space-x-2 border-2 border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl font-medium hover:border-violet-300 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+          >
+            {emailing ? (
+              <><Loader2 className="w-4 h-4 animate-spin" /><span>Sending...</span></>
+            ) : emailSent ? (
+              <><Check className="w-4 h-4 text-green-500" /><span className="text-green-600">Sent!</span></>
+            ) : (
+              <><Mail className="w-4 h-4" /><span>Email Report</span></>
+            )}
+          </button>
+          <button
+            onClick={handleShare}
+            disabled={sharing}
+            className="flex items-center space-x-2 border-2 border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl font-medium hover:border-violet-300 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+          >
+            {sharing ? (
+              <><Loader2 className="w-4 h-4 animate-spin" /><span>Creating link...</span></>
+            ) : shareCopied ? (
+              <><Check className="w-4 h-4 text-green-500" /><span className="text-green-600">Link Copied!</span></>
+            ) : (
+              <><Share2 className="w-4 h-4" /><span>{shareUrl ? 'Copy Link' : 'Share'}</span></>
+            )}
+          </button>
+          <button
             onClick={handleRetake}
             className="flex items-center space-x-2 border-2 border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl font-medium hover:border-violet-300 transition-colors"
           >
@@ -501,6 +570,12 @@ export default function ReportPage() {
             <span>Dashboard</span>
           </Link>
         </div>
+        {shareUrl && (
+          <div className="mt-3 flex items-center gap-2 bg-violet-50 border border-violet-100 rounded-xl px-4 py-2.5 print:hidden">
+            <Share2 className="w-4 h-4 text-violet-500 shrink-0" />
+            <span className="text-violet-700 text-sm truncate flex-1">{shareUrl}</span>
+          </div>
+        )}
       </div>
     </div>
   )
