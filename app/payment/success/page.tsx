@@ -15,8 +15,26 @@ function SuccessContent() {
       setStatus('error')
       return
     }
-    // Give webhook a moment to process then refresh user session
-    setTimeout(() => setStatus('success'), 2000)
+    // Wait for Stripe webhook to update DB, then refresh the JWT session
+    // so the user's new plan is reflected in subsequent requests.
+    const refreshSession = async () => {
+      for (let attempt = 0; attempt < 5; attempt++) {
+        await new Promise(r => setTimeout(r, 1500))
+        try {
+          const res = await fetch('/api/auth/refresh-session', { method: 'POST' })
+          const data = await res.json()
+          if (data.plan && data.plan !== 'free') {
+            setStatus('success')
+            return
+          }
+        } catch {
+          // ignore, retry
+        }
+      }
+      // Webhook may still be processing — show success anyway
+      setStatus('success')
+    }
+    refreshSession()
   }, [sessionId])
 
   if (status === 'loading') {

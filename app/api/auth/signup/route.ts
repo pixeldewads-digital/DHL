@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
+import { checkRateLimit } from '@/lib/rate-limit'
 import { Resend } from 'resend'
 import crypto from 'crypto'
 
@@ -15,6 +16,11 @@ export async function POST(req: NextRequest) {
 
     if (!email || !email.includes('@')) {
       return NextResponse.json({ error: 'Valid email required' }, { status: 400 })
+    }
+
+    const rl = await checkRateLimit(`auth:signup:${email}`, 5)
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
     }
 
     const validRoles = ['creator', 'founder', 'seller']
