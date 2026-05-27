@@ -29,8 +29,18 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json()
 
+  // Fetch fresh user data from DB — JWT may be stale after a recent payment
+  const { data: freshUser } = await supabaseAdmin
+    .from('users')
+    .select('plan, payment_status')
+    .eq('id', session.id)
+    .single()
+
+  const plan = freshUser?.plan ?? session.plan
+  const paymentStatus = freshUser?.payment_status ?? session.payment_status
+
   // Check if user can access paid stages (stages 2-6)
-  const isPaid = session.plan === 'monthly' || session.plan === 'lifetime' || session.payment_status === 'paid'
+  const isPaid = plan === 'monthly' || plan === 'lifetime' || paymentStatus === 'paid'
 
   // Filter fields based on plan
   const allowedFields: Record<string, boolean> = {

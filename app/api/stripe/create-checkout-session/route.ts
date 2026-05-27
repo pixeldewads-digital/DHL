@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { plan } = await req.json()
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://productaiprompts.com'
 
   // Get or create Stripe customer
   const { data: user } = await supabaseAdmin
