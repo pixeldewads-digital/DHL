@@ -79,6 +79,25 @@ CREATE TABLE IF NOT EXISTS reports (
   created_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS waitlist_signups (
+  id                   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email                TEXT UNIQUE NOT NULL,
+  first_name           TEXT NOT NULL,
+  company_name         TEXT,
+  role                 TEXT,                           -- Creator | Founder | Online Seller | Freelancer | Other
+  current_tool         TEXT,                           -- ChatGPT | Notion | Manual Research | YouTube/Courses | Other
+  pain_level           INT,                            -- 1-10
+  referral_source      TEXT,                           -- Twitter/X | Instagram | TikTok | Reddit | Google | Friend | Other
+  signup_ip            TEXT,
+  status               TEXT DEFAULT 'pending',         -- pending | invited | converted
+  position_in_waitlist INT NOT NULL,
+  invited_at           TIMESTAMP,
+  invite_code          TEXT,
+  notes                TEXT,
+  created_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- ── INDEXES ──────────────────────────────────────────────────
 
 CREATE INDEX IF NOT EXISTS idx_users_email                  ON users(email);
@@ -90,6 +109,10 @@ CREATE INDEX IF NOT EXISTS idx_questionnaires_created_at    ON questionnaires(cr
 CREATE INDEX IF NOT EXISTS idx_reports_user_id              ON reports(user_id);
 CREATE INDEX IF NOT EXISTS idx_reports_questionnaire_id     ON reports(questionnaire_id);
 CREATE INDEX IF NOT EXISTS idx_reports_created_at           ON reports(created_at);
+CREATE INDEX IF NOT EXISTS idx_waitlist_email               ON waitlist_signups(email);
+CREATE INDEX IF NOT EXISTS idx_waitlist_status              ON waitlist_signups(status);
+CREATE INDEX IF NOT EXISTS idx_waitlist_position            ON waitlist_signups(position_in_waitlist);
+CREATE INDEX IF NOT EXISTS idx_waitlist_created_at          ON waitlist_signups(created_at DESC);
 
 -- ── AUTO-UPDATE updated_at ────────────────────────────────────
 
@@ -109,6 +132,10 @@ CREATE OR REPLACE TRIGGER update_questionnaires_updated_at
   BEFORE UPDATE ON questionnaires
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+CREATE OR REPLACE TRIGGER update_waitlist_updated_at
+  BEFORE UPDATE ON waitlist_signups
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
 -- ── VERIFY ───────────────────────────────────────────────────
 -- Run this after setup to confirm all tables exist:
 --
@@ -122,3 +149,4 @@ CREATE OR REPLACE TRIGGER update_questionnaires_updated_at
 --   questionnaires
 --   reports
 --   users
+--   waitlist_signups
