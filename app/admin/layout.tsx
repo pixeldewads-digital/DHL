@@ -1,12 +1,8 @@
 import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/auth'
+import { isAdmin } from '@/lib/admin'
 import Link from 'next/link'
 import { LayoutDashboard, Users, Download } from 'lucide-react'
-
-function isAdmin(email: string): boolean {
-  const adminEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase())
-  return adminEmails.includes(email.toLowerCase())
-}
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession()

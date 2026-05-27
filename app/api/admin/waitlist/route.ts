@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSession } from '@/lib/auth'
+import { isAdmin } from '@/lib/admin'
 import { getWaitlist, updateWaitlistStatus } from '@/lib/db/waitlist'
 
 export const dynamic = 'force-dynamic'
 
-function isAdmin(email: string): boolean {
-  const adminEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase())
-  return adminEmails.includes(email.toLowerCase())
-}
+const VALID_STATUSES = ['pending', 'invited', 'converted'] as const
+type WaitlistStatus = typeof VALID_STATUSES[number]
 
 export async function GET(req: NextRequest) {
   const session = await getSession()
@@ -38,8 +37,14 @@ export async function PATCH(req: NextRequest) {
   if (!ids?.length || !status) {
     return NextResponse.json({ error: 'ids and status required' }, { status: 400 })
   }
+  if (!VALID_STATUSES.includes(status as WaitlistStatus)) {
+    return NextResponse.json(
+      { error: `Invalid status. Must be one of: ${VALID_STATUSES.join(', ')}` },
+      { status: 400 }
+    )
+  }
 
-  const ok = await updateWaitlistStatus(ids, status)
+  const ok = await updateWaitlistStatus(ids, status as WaitlistStatus)
   return ok
     ? NextResponse.json({ success: true })
     : NextResponse.json({ error: 'Update failed' }, { status: 500 })

@@ -19,9 +19,11 @@ export async function POST() {
 
   if (!report) return NextResponse.json({ error: 'No report found' }, { status: 404 })
 
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://productaiprompts.com'
+
   // Return existing token or generate a new one
   if (report.share_token) {
-    const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL}/report/share/${report.share_token}`
+    const shareUrl = `${appUrl}/report/share/${report.share_token}`
     return NextResponse.json({ shareUrl, token: report.share_token })
   }
 
@@ -37,6 +39,6 @@ export async function POST() {
     return NextResponse.json({ error: 'Failed to create share link' }, { status: 500 })
   }
 
-  const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL}/report/share/${token}`
+  const shareUrl = `${appUrl}/report/share/${token}`
   return NextResponse.json({ shareUrl, token })
 }

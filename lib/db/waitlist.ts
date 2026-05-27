@@ -19,26 +19,38 @@ export async function addToWaitlist(data: WaitlistSignupRequest & { signup_ip?: 
     return { success: true, position: existing.position_in_waitlist, alreadyExists: true }
   }
 
-  const { count } = await supabaseAdmin
-    .from('waitlist_signups')
-    .select('*', { count: 'exact', head: true })
-
-  const position = (count ?? 0) + 1
-
-  const { error } = await supabaseAdmin.from('waitlist_signups').insert([
-    {
-      ...data,
-      email,
-      position_in_waitlist: position,
-      status: 'pending',
-    },
-  ])
+  // Use MAX(position_in_waitlist) + 1 inside the INSERT so the position is
+  // computed atomically by the DB engine, avoiding count-then-insert races.
+  const { data: inserted, error } = await supabaseAdmin
+    .rpc('insert_waitlist_signup', {
+      p_email: email,
+      p_first_name: data.first_name,
+      p_company_name: data.company_name ?? null,
+      p_role: data.role ?? null,
+      p_current_tool: data.current_tool ?? null,
+      p_pain_level: data.pain_level ?? null,
+      p_referral_source: data.referral_source ?? null,
+      p_signup_ip: data.signup_ip ?? null,
+    })
 
   if (error) {
     console.error('Waitlist insert error:', error)
-    return { success: false, error: error.message }
+    // Fallback: non-atomic insert if the RPC hasn't been created yet
+    const { count } = await supabaseAdmin
+      .from('waitlist_signups')
+      .select('*', { count: 'exact', head: true })
+    const position = (count ?? 0) + 1
+    const { error: fallbackError } = await supabaseAdmin.from('waitlist_signups').insert([
+      { ...data, email, position_in_waitlist: position, status: 'pending' },
+    ])
+    if (fallbackError) {
+      console.error('Waitlist fallback insert error:', fallbackError)
+      return { success: false, error: fallbackError.message }
+    }
+    return { success: true, position }
   }
 
+  const position = (inserted as { position_in_waitlist: number } | null)?.position_in_waitlist ?? 1
   return { success: true, position }
 }
 
