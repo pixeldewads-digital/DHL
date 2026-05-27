@@ -46,6 +46,7 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-6">
             <Link href="/" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Home</Link>
             <Link href="/pricing" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Pricing</Link>
+            <Link href="/prompt-library" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Prompt Library</Link>
             {user && (
               <Link href="/dashboard" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Dashboard</Link>
             )}
@@ -100,6 +101,7 @@ export default function Header() {
           <div className="md:hidden py-4 border-t border-gray-100 space-y-3">
             <Link href="/" className="block py-2 text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Home</Link>
             <Link href="/pricing" className="block py-2 text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Pricing</Link>
+            <Link href="/prompt-library" className="block py-2 text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Prompt Library</Link>
             {user ? (
               <>
                 <Link href="/dashboard" className="block py-2 text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Dashboard</Link>

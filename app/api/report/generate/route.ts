@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getSession } from '@/lib/auth'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
+import { STAGES } from '@/lib/questions'
 import Anthropic from '@anthropic-ai/sdk'
 
 export const dynamic = 'force-dynamic'
@@ -9,35 +10,13 @@ const MONTHLY_LIMIT = 5
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 function buildAnswersBlock(q: Record<string, string | null>) {
-  return `Stage 1 - Idea & Validation:
-  Q1: ${q.stage1_q1}
-  Q2: ${q.stage1_q2}
-  Q3: ${q.stage1_q3}
-
-Stage 2 - Idea Generation:
-  Q1: ${q.stage2_q1}
-  Q2: ${q.stage2_q2}
-  Q3: ${q.stage2_q3}
-
-Stage 3 - Problem Definition:
-  Q1: ${q.stage3_q1}
-  Q2: ${q.stage3_q2}
-  Q3: ${q.stage3_q3}
-
-Stage 4 - Market & User Validation:
-  Q1: ${q.stage4_q1}
-  Q2: ${q.stage4_q2}
-  Q3: ${q.stage4_q3}
-
-Stage 5 - Business & Feasibility:
-  Q1: ${q.stage5_q1}
-  Q2: ${q.stage5_q2}
-  Q3: ${q.stage5_q3}
-
-Stage 6 - Brand & Positioning:
-  Q1: ${q.stage6_q1}
-  Q2: ${q.stage6_q2}
-  Q3: ${q.stage6_q3}`
+  return STAGES.map(stage => {
+    const lines = stage.questions.map(question => {
+      const answer = q[question.key as keyof typeof q]
+      return `  Q: ${question.text}\n  A: ${answer ?? '(tidak dijawab)'}`
+    }).join('\n\n')
+    return `Stage ${stage.id} — ${stage.title}:\n${lines}`
+  }).join('\n\n')
 }
 
 function buildMonthlyPrompt(role: string, answers: string) {
