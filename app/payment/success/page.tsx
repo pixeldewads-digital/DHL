@@ -15,11 +15,12 @@ function SuccessContent() {
       setStatus('error')
       return
     }
-    // Wait for Stripe webhook to update DB, then refresh the JWT session
-    // so the user's new plan is reflected in subsequent requests.
+    // Poll refresh-session until the Stripe webhook has updated the DB plan.
+    // If the webhook is very slow we still show success (Stripe guarantees delivery)
+    // but log a warning so it's visible in the browser console.
     const refreshSession = async () => {
-      for (let attempt = 0; attempt < 5; attempt++) {
-        await new Promise(r => setTimeout(r, 1500))
+      for (let attempt = 0; attempt < 8; attempt++) {
+        await new Promise(r => setTimeout(r, 2000))
         try {
           const res = await fetch('/api/auth/refresh-session', { method: 'POST' })
           const data = await res.json()
@@ -28,10 +29,13 @@ function SuccessContent() {
             return
           }
         } catch {
-          // ignore, retry
+          // network hiccup — keep retrying
         }
       }
-      // Webhook may still be processing — show success anyway
+      // Webhook hasn't landed after ~16 s. Show success (Stripe guarantees eventual
+      // delivery). The questionnaire route re-checks the DB directly on each request
+      // so access will be granted even if the JWT cookie still shows plan='free'.
+      console.warn('[payment/success] Session still shows free plan after polling. Webhook may be delayed.')
       setStatus('success')
     }
     refreshSession()

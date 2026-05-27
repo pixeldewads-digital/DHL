@@ -30,14 +30,19 @@ export async function POST(req: NextRequest) {
   const body = await req.json()
 
   // Fetch fresh user data from DB — JWT may be stale after a recent payment
-  const { data: freshUser } = await supabaseAdmin
+  const { data: freshUser, error: freshUserError } = await supabaseAdmin
     .from('users')
     .select('plan, payment_status')
     .eq('id', session.id)
     .single()
 
-  const plan = freshUser?.plan ?? session.plan
-  const paymentStatus = freshUser?.payment_status ?? session.payment_status
+  if (freshUserError || !freshUser) {
+    console.error('Failed to fetch fresh user plan:', freshUserError)
+    return NextResponse.json({ error: 'Failed to verify account status' }, { status: 503 })
+  }
+
+  const plan = freshUser.plan
+  const paymentStatus = freshUser.payment_status
 
   // Check if user can access paid stages (stages 2-6)
   const isPaid = plan === 'monthly' || plan === 'lifetime' || paymentStatus === 'paid'

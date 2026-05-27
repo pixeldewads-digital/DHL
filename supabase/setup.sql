@@ -162,6 +162,32 @@ END $$;
 
 CREATE INDEX IF NOT EXISTS idx_reports_share_token ON reports(share_token);
 
+-- ── ATOMIC WAITLIST INSERT RPC ───────────────────────────────
+-- Computes MAX(position_in_waitlist)+1 and inserts in one statement,
+-- eliminating the count-then-insert race condition in application code.
+
+CREATE OR REPLACE FUNCTION insert_waitlist_signup(
+  p_email           TEXT,
+  p_first_name      TEXT,
+  p_company_name    TEXT,
+  p_role            TEXT,
+  p_current_tool    TEXT,
+  p_pain_level      INT,
+  p_referral_source TEXT,
+  p_signup_ip       TEXT
+) RETURNS TABLE (position_in_waitlist INT) AS $$
+  INSERT INTO waitlist_signups (
+    email, first_name, company_name, role, current_tool,
+    pain_level, referral_source, signup_ip, status, position_in_waitlist
+  )
+  SELECT
+    p_email, p_first_name, p_company_name, p_role, p_current_tool,
+    p_pain_level, p_referral_source, p_signup_ip,
+    'pending',
+    COALESCE((SELECT MAX(ws.position_in_waitlist) FROM waitlist_signups ws), 0) + 1
+  RETURNING position_in_waitlist;
+$$ LANGUAGE sql;
+
 -- ── VERIFY ───────────────────────────────────────────────────
 -- Run this after setup to confirm all tables exist:
 --
