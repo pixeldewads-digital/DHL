@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { ChevronLeft, ChevronRight, Loader2, Lock, CheckCircle, Send, Zap, ArrowRight } from 'lucide-react'
 import { STAGES } from '@/lib/questions'
 import { GenerationStatus } from '@/types'
+import OnboardingModal from '@/components/OnboardingModal'
 
 interface Answers {
   [key: string]: string
@@ -226,6 +227,7 @@ export default function QuestionnairePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
+      <OnboardingModal />
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="mb-6">
